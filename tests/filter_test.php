@@ -15,9 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Multi-Embed Unit test
+ * Units tests for the Multi-Embed Filter
  *
  * @package    filter_multiembed
+ * @category   phpunit
  * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
  * @authors    Frederic Nevers
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -44,21 +45,47 @@ class filter_multiembed_testcase extends basic_testcase {
     }
 
     /**
-     * Test all services used in the filter.
-     * TODO: Update this every time a new service is added
+     * Performs unit tests for all services supported by the Multi-Embed filter.
      *
      */
     public function test_filter() {
         return true;
-        $tedlink = '<p><a href="https://www.ted.com/talks/aj_jacobs_how_healthy_living_nearly_killed_me">Ted</a></p>';
 
-        $filterinput = $tedlink;
+        // Provide some working URLs to test
+        $urls = array(
+            'CodePen' => 'https://www.link.com',
+            'eMaze' => 'https://www.link.com',
+            'Haiku' => 'https://www.link.com',
+            'Imgur' => 'https://www.link.com',
+            'Infogram' => 'https://www.link.com',
+            'Padlet' => 'https://www.link.com',
+            'PBS' => 'https://www.link.com',
+            'PiktoChart' => 'https://www.link.com',
+            'PollEv' => 'https://www.link.com',
+            'Prezi' => 'https://www.link.com',
+            'Quizlet' => 'https://www.link.com',
+            'Slides' => 'https://www.link.com',
+            'SoundCloud' => 'https://www.link.com'
+        );
 
+        // Feed all working URLs to the filter
+        $filterinput = '';
+
+        foreach ($urls as $service => $url) {
+            $filterinput .= '<p><a href="'.$url.'">'.$service.'</a></p>';
+        }
+        unset($url);
+
+        // Run filter on the input
         $filteroutput = $this->filter->filter($filterinput);
 
-        $tedoutput = '<iframe src="https://embed-ssl.ted.com/talks/aj_jacobs_how_healthy_living_nearly_killed_me.html" width="480"';
-        $tedoutput .= ' height="270" frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen>';
-        $tedoutput .= '</iframe>';
-        $this->assertContains($tedoutput, $filteroutput, 'Ted filter fails');
+        // Run CodePen test
+        $codepenout = ;
+        $this->assertContains($codepenout, $filteroutput, 'CodePen filter fails');
+
+        // Run eMaze test
+        $emazeout = ;
+        $this->assertContains($emazeout, $filteroutput, 'eMaze filter fails');
+
     }
 }

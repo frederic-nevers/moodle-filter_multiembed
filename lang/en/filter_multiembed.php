@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -26,13 +25,21 @@
 
 $string['filtername'] = 'Multi-Embed Filter';
 
-// Settings page
-
+// Settings page.
 $string['codepen'] = 'Codepen';
 $string['codepen_desc'] = 'Embed Codepen snippets';
 
+$string['emaze'] = 'Emaze';
+$string['emaze_desc'] = 'Embed Emaze presentations';
+
+$string['haiku'] = 'Haiku';
+$string['haiku_desc'] = 'Embed Haiku decks';
+
 $string['imgur'] = 'Imgur';
 $string['imgur_desc'] = 'Embed Imgur images';
+
+$string['infogram'] = 'Infogr.am';
+$string['infogram_desc'] = 'Embed Infogr.am visuals';
 
 $string['padlet'] = 'Padlet';
 $string['padlet_desc'] = 'Embed Padlet boards';
@@ -40,19 +47,25 @@ $string['padlet_desc'] = 'Embed Padlet boards';
 $string['pbs'] = 'PBS';
 $string['pbs_desc'] = 'Embed PBS videos';
 
+$string['piktochart'] = 'Piktochart';
+$string['piktochart_desc'] = 'Embed Piktochart visuals';
+
 $string['pollev'] = 'PollEverywhere';
 $string['pollev_desc'] = 'Embed PollEverywhere polls';
 
 $string['prezi'] = 'Prezi';
 $string['prezi_desc'] = 'Embed Prezi presentations';
 
-$string['quizlet'] = 'Quizlet Activities';
+$string['quizlet'] = 'Quizlet';
 $string['quizlet_desc'] = 'Embed Quizlet Activities';
+
+$string['slides'] = 'Slid.es';
+$string['slides_desc'] = 'Embed Slid.es presentations';
 
 $string['soundcloud'] = 'Soundcloud';
 $string['soundcloud_desc'] = 'Embed Soundcloud tracks';
 
-$string['ted'] = 'TED Videos';
+$string['ted'] = 'TED';
 $string['ted_desc'] = 'Embed TED Videos';
 
 

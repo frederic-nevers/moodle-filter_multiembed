@@ -15,7 +15,7 @@
 // along with Moodle-oembed-Filter.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Greedy Filter settings
+ * Multi-Embed Filter settings
  *
  * @package    filter_multiembed
  * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
@@ -32,9 +32,24 @@ if ($ADMIN->fulltree) {
         get_string('codepen_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/emaze',
+        get_string('emaze', 'filter_multiembed'),
+        get_string('emaze_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/haiku',
+        get_string('haiku', 'filter_multiembed'),
+        get_string('haiku_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/imgur',
         get_string('imgur', 'filter_multiembed'),
         get_string('imgur_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/infogram',
+        get_string('infogram', 'filter_multiembed'),
+        get_string('infogram_desc', 'filter_multiembed'),
         1));
 
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/padlet',
@@ -45,6 +60,11 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/pbs',
         get_string('pbs', 'filter_multiembed'),
         get_string('pbs_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/piktochart',
+        get_string('piktochart', 'filter_multiembed'),
+        get_string('piktochart_desc', 'filter_multiembed'),
         1));
 
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/pollev',
@@ -62,6 +82,11 @@ if ($ADMIN->fulltree) {
         get_string('quizlet_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/slides',
+        get_string('slides', 'filter_multiembed'),
+        get_string('slides_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/soundcloud',
         get_string('soundcloud', 'filter_multiembed'),
         get_string('soundcloud_desc', 'filter_multiembed'),
@@ -72,7 +97,7 @@ if ($ADMIN->fulltree) {
         get_string('ted_desc', 'filter_multiembed'),
         1));
 
-    }
+}
 
 
 
