@@ -172,7 +172,7 @@ function filter_multiembed_codepencallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_emazecallback($link) {
-    $embedcode = '<iframe src="https://app.emaze.com/';
+    $embedcode = '<iframe src="//app.emaze.com/';
     $embedcode .= $link[4].'/'.$link[5]; // Emaze presentation IDs are in the 4th capturing group of the regex.
     $embedcode .= '" width="960px" height="540px" seamless webkitallowfullscreen';
     $embedcode .= ' mozallowfullscreen allowfullscreen></iframe>';
@@ -187,7 +187,7 @@ function filter_multiembed_emazecallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_haikucallback($link) {
-    $embedcode = '<iframe src="https://www.haikudeck.com/e/';
+    $embedcode = '<iframe src="//www.haikudeck.com/e/';
     // Only keep the last 10 characters of any URL, those are the deck IDs.
     $embedcode .= substr($link[4], -10); // Haiku deck IDs are in the 4th capturing group of the regex.
     $embedcode .= '/?isUrlHashEnabled=false&isPreviewEnabled=false&isHeaderVisible=false"';
@@ -271,13 +271,13 @@ function filter_multiembed_piktochartcallback($link) {
     $embedcode .= '" style="height: 300px; position: relative;"><div class="embed-loading-overlay" style="width: 100%;';
     $embedcode .= ' height: 100%; position: absolute; text-align: center;">';
     $embedcode .= '<img width="60px" alt="Loading..." style="margin-top: 100px" ';
-    $embedcode .= 'src="https://magic.piktochart.com/loading.gif"/>';
+    $embedcode .= 'src="//magic.piktochart.com/loading.gif"/>';
     $embedcode .= '<p style="margin: 0; padding: 0; font-family: Lato, Helvetica, Arial, sans-serif;';
     $embedcode .= 'font-weight: 600; font-size: 16px">Loading...</p></div><div class="pikto-canvas-wrap">';
     $embedcode .= '<div class="pikto-canvas"></div></div></div>';
     $embedcode .= '<script>(function(d){var js, id="pikto-embed-js", ref=d.getElementsByTagName("script")[0]';
     $embedcode .= ';if (d.getElementById(id)) { return;}js=d.createElement("script")';
-    $embedcode .= ';js.id=id; js.async=true;js.src="https://magic.piktochart.com/assets/embedding/embed.js"';
+    $embedcode .= ';js.id=id; js.async=true;js.src="//magic.piktochart.com/assets/embedding/embed.js"';
     $embedcode .= ';ref.parentNode.insertBefore(js, ref);}(document));</script>';
 
     return $embedcode;
