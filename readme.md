@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/frederic-nevers/moodle-filter_multiembed.svg?branch=master)](https://travis-ci.org/frederic-nevers/moodle-filter_multiembed)
 # Synopsis
 
-The Moodle Multi-Embed filter automatically turns URLs from supported services into embedded content, without any user input. By using the Moodle Multi-Embed, Moodle users (e.g. teachers) do not need to know how to 'embed' objects from other sites, they only need to know how to copy/paste a URL into their Moodle content, using the standard Moodle editor. The initial release of this plugin supports [XX](#Supported-services) services. 
+The Moodle Multi-Embed filter automatically turns URLs from supported services into embedded content, without any user input. By using the Moodle Multi-Embed, Moodle users (e.g. teachers) do not need to know how to 'embed' objects from other sites, they only need to know how to copy/paste a URL into their Moodle content, using the standard Moodle editor. The initial release of this plugin supports [14](#Supported-services) services. 
 
 # Example
 
@@ -20,7 +20,7 @@ There are several ways to install Moodle plugins. This plugin is compatible with
 
 # Supported services
 
-The following services are currently supported. Please contact me on Twitter at @fred_nevers if you would like a service to be added
+The following services are currently supported. Services will be added on a regular basis. Please add an issue [here](https://github.com/frederic-nevers/moodle-filter_multiembed/issues) if you would like a service to be added
    1. CodePen - http://codepen.io
    2. eMaze - https://www.emaze.com
    3. Haiku Deck - https://www.haikudeck.com
@@ -38,7 +38,7 @@ The following services are currently supported. Please contact me on Twitter at 
 
 # Services tested, not currently supported
 
-The following services have been tested, but cannot currently be supported (either the service does not offer embedding, or the embedding code cannot be reverse-engineered from the URL). Please get in touch if you think it can be done, or better yet send a pull request.
+The following services have been tested, but cannot currently be supported (either the service does not offer embedding, or the embedding code cannot be reverse-engineered from the URL). Please create an issue [here](https://github.com/frederic-nevers/moodle-filter_multiembed/issues) if you think it can be done, or better yet send a pull request [here](https://github.com/frederic-nevers/moodle-filter_multiembed/pulls) .
    * Cram - http://www.cram.com
    * Dribbble - https://dribbble.com 
    * Flashcard Machine - http://www.flashcardmachine.com/
@@ -59,9 +59,9 @@ The following services have been tested, but cannot currently be supported (eith
 
 # Contributors
 
-Original author: Frederic Nevers | www.iteachwithmoodle.com | @fred_nevers
-Inspired by the Moodle oEmbed filter https://github.com/Microsoft/moodle-filter_oembed
+Original author: Frederic Nevers | [www.iteachwithmoodle.com](http://www.iteachwithmoodle.com) | [@fred_nevers](https://twitter.com/@fred_nevers)
+Inspired by the Moodle [oEmbed](https://github.com/Microsoft/moodle-filter_oembed) filter
 
 # License
 
-This plugin is (like Moodle) free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+This plugin is (like Moodle) free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. More information about this license at http://www.gnu.org/licenses/
