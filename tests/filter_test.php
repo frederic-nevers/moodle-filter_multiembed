@@ -60,7 +60,6 @@ class filter_multiembed_testcase extends basic_testcase {
      * @return bool
      */
     public function test_filter() {
-        //return true;
 
         // Provide some working URLs to test.
         $urls = array(
@@ -181,5 +180,6 @@ class filter_multiembed_testcase extends basic_testcase {
         $tedout .= 'webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
         $this->assertContains($tedout, $filteroutput, 'TED filter fails');
 
+        return true;
     }
 }
