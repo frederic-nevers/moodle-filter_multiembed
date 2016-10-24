@@ -19,22 +19,30 @@
  *
  * @package    filter_multiembed
  * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
- * @authors    Frederic Nevers
+ * @author     Frederic Nevers
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-/**
- * Class filter_multiembed
- */
 
+/**
+ * Multi-Embed filter definition
+ *
+ * Class filter_multiembed
+ *
+ * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class filter_multiembed extends moodle_text_filter {
 
     /**
-     * @param some $text
-     * @param array $options
-     * @return some
+     * Define the filter and run regex for each service
+     * TODO: can the function be split up into smaller chunks?
+     *
+     * @param  string $text contained in page
+     * @param  array $options
+     * @return string $newtext filtered text
      */
     public function filter($text, array $options = array()) {
 
@@ -148,10 +156,11 @@ class filter_multiembed extends moodle_text_filter {
 
 }
 
+
 /**
  * Turns a CodePen link into an embedded snippet
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_codepencallback($link) {
@@ -168,7 +177,7 @@ function filter_multiembed_codepencallback($link) {
 /**
  * Turns an emaze link into an embedded presentation
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_emazecallback($link) {
@@ -183,7 +192,7 @@ function filter_multiembed_emazecallback($link) {
 /**
  * Turns a Haiku link into an embedded presentation
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_haikucallback($link) {
@@ -199,7 +208,7 @@ function filter_multiembed_haikucallback($link) {
 /**
  * Turns an Imgur link into an embedded image
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_imgurcallback($link) {
@@ -217,7 +226,7 @@ function filter_multiembed_imgurcallback($link) {
 /**
  * Turns an Infogr.am link into an embedded visualisation
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_infogramcallback($link) {
@@ -233,7 +242,7 @@ function filter_multiembed_infogramcallback($link) {
  * Turns a Padlet link into an embedded video
  * iframe code from www.padlet.com website
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_padletcallback($link) {
@@ -248,7 +257,7 @@ function filter_multiembed_padletcallback($link) {
  * Turns a PBS link into an embedded video
  * iframe code from www.pbs.com website
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_pbscallback($link) {
@@ -262,7 +271,7 @@ function filter_multiembed_pbscallback($link) {
 /**
  * Turns a Piktochart link into an embedded poll
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_piktochartcallback($link) {
@@ -283,11 +292,12 @@ function filter_multiembed_piktochartcallback($link) {
     return $embedcode;
 }
 
+
 /**
  * Turns a PollEverywhere link into an embedded poll
  * iframe code from www.polleverywhere.com website
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_pollevcallback($link) {
@@ -304,7 +314,7 @@ function filter_multiembed_pollevcallback($link) {
  * Turns a Prezi link into an embedded presentation
  * iframe code from www.prezi.com website
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_prezicallback($link) {
@@ -320,7 +330,7 @@ function filter_multiembed_prezicallback($link) {
  * Turns a Quizlet link into an embedded activity
  * iframe code from www.quizlet.com website
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_quizletcallback($link) {
@@ -334,7 +344,7 @@ function filter_multiembed_quizletcallback($link) {
 /**
  * Turns a Slid.es link into an embedded presentation
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_slidescallback($link) {
@@ -352,7 +362,7 @@ function filter_multiembed_slidescallback($link) {
  * Please note that this may not work forever,
  * As it is a workaround (soundcloud API normally asks for tracks IDs)
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_soundcloudcallback($link) {
@@ -369,7 +379,7 @@ function filter_multiembed_soundcloudcallback($link) {
  * Turns a TED link into an embedded video
  * iframe code from www.ted.com website
  *
- * @param $link HTML tag containing a link
+ * @param  string $link HTML tag containing a link
  * @return string HTML content after processing.
  */
 function filter_multiembed_tedcallback($link) {

@@ -19,7 +19,7 @@
  *
  * @package    filter_multiembed
  * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
- * @authors    Frederic Nevers
+ * @author     Frederic Nevers
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

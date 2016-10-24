@@ -18,9 +18,8 @@
  * Units tests for the Multi-Embed Filter
  *
  * @package    filter_multiembed
- * @category   phpunit
  * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
- * @authors    Frederic Nevers
+ * @author     Frederic Nevers
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,6 +33,8 @@ require_once($CFG->dirroot . '/filter/multiembed/filter.php');
  * PHP Unit test for the Multi-Embed filter
  *
  * Class filter_multiembed_testcase
+ * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter_multiembed_testcase extends basic_testcase {
 
