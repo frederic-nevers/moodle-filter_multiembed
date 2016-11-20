@@ -29,6 +29,9 @@ $string['filtername'] = 'Multi-Embed Filter';
 $string['codepen'] = 'Codepen';
 $string['codepen_desc'] = 'Embed Codepen snippets';
 
+$string['desmos'] = 'Desmos';
+$string['desmos_desc'] = 'Embed Desmos calculators';
+
 $string['emaze'] = 'Emaze';
 $string['emaze_desc'] = 'Embed Emaze presentations';
 
@@ -67,5 +70,8 @@ $string['soundcloud_desc'] = 'Embed Soundcloud tracks';
 
 $string['ted'] = 'TED';
 $string['ted_desc'] = 'Embed TED Videos';
+
+$string['youtube'] = 'YouTube';
+$string['youtube_desc'] = 'Embed YouTube Videos';
 
 

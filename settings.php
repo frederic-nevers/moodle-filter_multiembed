@@ -32,6 +32,11 @@ if ($ADMIN->fulltree) {
         get_string('codepen_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/desmos',
+        get_string('desmos', 'filter_multiembed'),
+        get_string('desmos_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/emaze',
         get_string('emaze', 'filter_multiembed'),
         get_string('emaze_desc', 'filter_multiembed'),
@@ -95,6 +100,11 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/ted',
         get_string('ted', 'filter_multiembed'),
         get_string('ted_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/youtube',
+        get_string('youtube', 'filter_multiembed'),
+        get_string('youtube_desc', 'filter_multiembed'),
         1));
 
 }

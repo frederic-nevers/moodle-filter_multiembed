@@ -65,6 +65,12 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_codepencallback', $newtext);
         }
 
+        // Search for Desmos calculators
+        if (get_config('filter_multiembed', 'desmos')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(desmos\.com)\/(calculator)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_desmoscallback', $newtext);
+        }
+
         // Search for eMaze.
         if (get_config('filter_multiembed', 'emaze')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(emaze\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
@@ -144,6 +150,11 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_tedcallback', $newtext);
         }
 
+        if (get_config('filter_multiembed', 'youtube')) {
+            $search = '/<a\s[^>]*href="((https?:\/\/(www\.)?)(youtube\.com|youtu\.be|youtube\.googleapis.com)\/(?:embed\/|v\/|watch\?v=|watch\?.+?&amp;v=|watch\?.+?&v=)?((\w|-){11})(.*?))"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_youtubecallback', $newtext);
+        }
+
         // Exception checks.
         if (empty($newtext) or $newtext === $text) {
             // Error or not filtered.
@@ -170,6 +181,22 @@ function filter_multiembed_codepencallback($link) {
     $embedcode .= $link[6]; // CodePen snippet ID is in 6th capturing group of the regex.
     $embedcode .= '/?height=265&amp;theme-id=0&amp;default-tab=css,result&embed-version=2" frameborder="no"';
     $embedcode .= ' allowtransparency="true" allowfullscreen="true" style="width: 100%;"></iframe>';
+
+    return $embedcode;
+}
+
+/**
+ * Turns a Desmos link into an embedded graphic calculator
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_desmoscallback($link) {
+    $embedcode = '<a title="View with the Desmos Graphing Calculator" href="https://www.desmos.com/calculator/';
+    $embedcode .= $link[5]; // Desmos graphing calculators are in 5th capturing group of the regex.
+    $embedcode .= '">  <img src="https://s3.amazonaws.com/calc_thumbs/production/';
+    $embedcode .= $link[5].'.png'; // Desmos graphing calculators are in 5th capturing group of the regex.
+    $embedcode .= '" width="200px" height="200px" style="border:1px solid #ccc; border-radius:5px"/></a>';
 
     return $embedcode;
 }
@@ -387,6 +414,21 @@ function filter_multiembed_tedcallback($link) {
     $embedcode .= $link[4]; // TED video IDs are in the 4th capturing group of the regex.
     $embedcode .= '" width="640" height="360" frameborder="0" scrolling="no" ';
     $embedcode .= 'webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+
+    return $embedcode;
+}
+
+/**
+ * Turns a YouTube link into an embedded video
+ * iframe code from www.youtube.com website
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_youtubecallback($link) {
+    $embedcode = '<iframe width="560" height="315" src="https://www.youtube.com/embed/';
+    $embedcode .= $link[5]; // YouTube video IDs are in the 5th capturing group of the regex.
+    $embedcode .= '" frameborder="0" allowfullscreen></iframe>';
 
     return $embedcode;
 }

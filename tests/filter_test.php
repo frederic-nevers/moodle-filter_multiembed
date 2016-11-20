@@ -65,6 +65,7 @@ class filter_multiembed_testcase extends basic_testcase {
         // Provide some working URLs to test.
         $urls = array(
             'CodePen' => 'http://codepen.io/superpikar/pen/wzYaRo',
+            'Desmos' => 'https://www.desmos.com/calculator/cdxhggo4nc',
             'eMaze' => 'https://www.emaze.com/@AWRCLTWI/welcome-aboard',
             'Haiku' => 'https://www.haikudeck.com/parental-engagement-innovation-education-presentation-IAoLln02nF',
             'Imgur' => 'http://imgur.com/gallery/SRtaf',
@@ -77,7 +78,8 @@ class filter_multiembed_testcase extends basic_testcase {
             'Quizlet' => 'https://quizlet.com/68910157/flashcards',
             'Slides' => 'http://slides.com/news/custom-fonts#/',
             'SoundCloud' => 'https://soundcloud.com/770rd/bentley-coupe-lil-yachty-ft-gucci-mane-prod-byou',
-            'TED' => 'https://www.ted.com/talks/sam_harris_can_we_build_ai_without_losing_control_over_it'
+            'TED' => 'https://www.ted.com/talks/sam_harris_can_we_build_ai_without_losing_control_over_it',
+            'YouTube' => 'https://youtu.be/4m5KrPXL4wI'
         );
 
         // Feed all working URLs to the filter.
@@ -95,6 +97,12 @@ class filter_multiembed_testcase extends basic_testcase {
         $codepenout .= '/?height=265&amp;theme-id=0&amp;default-tab=css,result&embed-version=2" frameborder="no"';
         $codepenout .= ' allowtransparency="true" allowfullscreen="true" style="width: 100%;"></iframe>';
         $this->assertContains($codepenout, $filteroutput, 'CodePen filter fails');
+
+        // Run Desmos test.
+        $desmosout = '<a title="View with the Desmos Graphing Calculator" href="https://www.desmos.com/calculator/';
+        $desmosout .= 'cdxhggo4nc">  <img src="https://s3.amazonaws.com/calc_thumbs/production/cdxhggo4nc.png"';
+        $desmosout .= ' width="200px" height="200px" style="border:1px solid #ccc; border-radius:5px"/></a>';
+        $this->assertContains($desmosout, $filteroutput, 'Desmos filter fails');
 
         // Run eMaze test.
         $emazeout = '<iframe src="//app.emaze.com/@AWRCLTWI/welcome-aboard';
