@@ -80,7 +80,7 @@ class filter_multiembed extends moodle_text_filter {
         // Search for Google Docs, Drawings, Forms, Presentations and Sheets.
         if (get_config('filter_multiembed', 'gdocs')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(docs\.))(google\.com)\/(document|drawings|forms|';
-            $search .= 'presentation|spreadsheets)\/(.*?)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search .= 'presentation|spreadsheets)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
             $newtext = preg_replace_callback($search, 'filter_multiembed_gdocscallback', $newtext);
         }
 
