@@ -116,7 +116,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run Google Docs test.
         $gdocsout = '<iframe height="620" width="100%" border="0" src="//docs.google.com/document/';
-        $gdocsout .= 'src="https://docs.google.com/document/d/1rIj1E-vS_cAJjg-awtILzypvomS1Yp0QQzEVkxEfNjs';
+        $gdocsout .= 'd/1rIj1E-vS_cAJjg-awtILzypvomS1Yp0QQzEVkxEfNjs';
         $gdocsout .= '/edit?usp=sharing"></iframe>';
         $this->assertContains($gdocsout, $filteroutput, 'Gdocs filter fails');
 
