@@ -16,31 +16,38 @@ I have created this plugin to help teachers embed content more easily into their
 
 # Installation
 
-There are several ways to install Moodle plugins. This plugin is compatible with all officially supported ways to install a plugin. Please review this page for the latest information https://docs.moodle.org/31/en/Installing_plugins#Installing_a_plugin
+There are several ways to install Moodle plugins. This plugin is compatible with all officially supported ways to install a plugin. Please review this page for the latest information https://docs.moodle.org/32/en/Installing_plugins#Installing_a_plugin
 
 # Supported services
 
 The following services are currently supported. Services will be added on a regular basis. Please add an issue [here](https://github.com/frederic-nevers/moodle-filter_multiembed/issues) if you would like a service to be added
    1. CodePen - http://codepen.io
-   2. eMaze - https://www.emaze.com
-   3. Haiku Deck - https://www.haikudeck.com
-   4. ImgUr - http://imgur.com
-   5. Infogr.am - https://infogr.am
-   6. Padlet - https://padlet.com
-   7. PBS - http://www.pbs.org/video/
-   8. PiktoChart - https://piktochart.com
-   9. Poll Everywhere - https://www.polleverywhere.com
-   10. Prezi - https://prezi.com
-   11. Quizlet - https://quizlet.com
-   12. Slid.es - https://slid.es
-   13. SoundCloud - https://soundcloud.com
-   14. TED - https://www.ted.com
+   2. Desmos - https://www.desmos.com
+   3. eMaze - https://www.emaze.com
+   4. Personal Google Docs, Drawings, Forms, Sheets, Slides - https://docs.google.com
+   5. GSuite Google Docs, Drawings, Forms, Sheets, Slides - https://gsuite.google.com
+   6. Haiku Deck - https://www.haikudeck.com
+   7. ImgUr - http://imgur.com
+   8. Infogr.am - https://infogr.am
+   9. Padlet - https://padlet.com
+   10. PBS - http://www.pbs.org/video/
+   11. PiktoChart - https://piktochart.com
+   12. Poll Everywhere - https://www.polleverywhere.com
+   13. Prezi - https://prezi.com
+   14. Quizlet - https://quizlet.com
+   15. Slid.es - https://slid.es
+   16. SoundCloud - https://soundcloud.com
+   17. Sutori - https://www.sutori.com
+   18. TED - https://www.ted.com
+   19. ThingLink - https://www.thinglink.com
+   20. YouTube - https://www.youtube.com
 
 # Services tested, not currently supported
 
 The following services have been tested, but cannot currently be supported (either the service does not offer embedding, or the embedding code cannot be reverse-engineered from the URL). Please create an issue [here](https://github.com/frederic-nevers/moodle-filter_multiembed/issues) if you think it can be done, or better yet send a pull request [here](https://github.com/frederic-nevers/moodle-filter_multiembed/pulls) .
    * Cram - http://www.cram.com
-   * Dribbble - https://dribbble.com 
+   * Dribbble - https://dribbble.com
+   * Easel.ly - https://easel.ly
    * Flashcard Machine - http://www.flashcardmachine.com/
    * Flickr - https://www.flickr.com
    * Kahoot - https://getkahoot.com
@@ -55,6 +62,7 @@ The following services have been tested, but cannot currently be supported (eith
    * Speaker Deck - https://speakerdeck.com
    * StudyBlue - https://www.studyblue.com
    * TES Blendspace - https://www.tes.com/lessons/gallery
+   * Todays meet - https://todaysmeet.com
    * UStream - http://www.ustream.tv
 
 # Contributors

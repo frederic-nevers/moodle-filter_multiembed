@@ -18,7 +18,7 @@
  * Multi-Embed filter logic
  *
  * @package    filter_multiembed
- * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
+ * @copyright  2016-2017 Frederic Nevers, www.iteachwithmoodle.com
  * @author     Frederic Nevers
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -65,7 +65,7 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_codepencallback', $newtext);
         }
 
-        // Search for Desmos calculators
+        // Search for Desmos calculators.
         if (get_config('filter_multiembed', 'desmos')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(desmos\.com)\/(calculator)\/(.*?)"(.*?)>(.*?)<\/a>/is';
             $newtext = preg_replace_callback($search, 'filter_multiembed_desmoscallback', $newtext);
@@ -75,6 +75,20 @@ class filter_multiembed extends moodle_text_filter {
         if (get_config('filter_multiembed', 'emaze')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(emaze\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
             $newtext = preg_replace_callback($search, 'filter_multiembed_emazecallback', $newtext);
+        }
+
+        // Search for Google Docs, Drawings, Forms, Presentations and Sheets.
+        if (get_config('filter_multiembed', 'gdocs')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(docs\.))(google\.com)\/(document|drawings|forms|';
+            $search .= 'presentation|spreadsheets)\/(.*?)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_gdocscallback', $newtext);
+        }
+
+        // Search for GSuite shared documents.
+        if (get_config('filter_multiembed', 'gsuite')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(docs\.))(google\.com)\/(.*?)\/(.*?)\/(.*?)';
+            $search .= '\/(.*?)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_gsuitecallback', $newtext);
         }
 
         // Search for Haiku decks.
@@ -144,14 +158,27 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_soundcloudcallback', $newtext);
         }
 
+        // Search for Sutori timelines.
+        if (get_config('filter_multiembed', 'sutori')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(sutori\.com)\/timeline\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_sutoricallback', $newtext);
+        }
+
         // Search for TED Videos.
         if (get_config('filter_multiembed', 'ted')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(ted\.com)\/talks\/(.*?)"(.*?)>(.*?)<\/a>/is';
             $newtext = preg_replace_callback($search, 'filter_multiembed_tedcallback', $newtext);
         }
 
+        // Search for Thinglink images.
+        if (get_config('filter_multiembed', 'thinglink')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(thinglink\.com)\/scene\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_thinglinkcallback', $newtext);
+        }
+
         if (get_config('filter_multiembed', 'youtube')) {
-            $search = '/<a\s[^>]*href="((https?:\/\/(www\.)?)(youtube\.com|youtu\.be|youtube\.googleapis.com)\/(?:embed\/|v\/|watch\?v=|watch\?.+?&amp;v=|watch\?.+?&v=)?((\w|-){11})(.*?))"(.*?)>(.*?)<\/a>/is';
+            $search = '/<a\s[^>]*href="((https?:\/\/(www\.)?)(youtube\.com|youtu\.be|youtube\.googleapis.com)';
+            $search .= '\/(?:embed\/|v\/|watch\?v=|watch\?.+?&amp;v=|watch\?.+?&v=)?((\w|-){11})(.*?))"(.*?)>(.*?)<\/a>/is';
             $newtext = preg_replace_callback($search, 'filter_multiembed_youtubecallback', $newtext);
         }
 
@@ -212,6 +239,54 @@ function filter_multiembed_emazecallback($link) {
     $embedcode .= $link[4].'/'.$link[5]; // Emaze presentation IDs are in the 4th capturing group of the regex.
     $embedcode .= '" width="960px" height="540px" seamless webkitallowfullscreen';
     $embedcode .= ' mozallowfullscreen allowfullscreen></iframe>';
+
+    return $embedcode;
+}
+
+/**
+ * Turns a Google Doc, Drawing, Form, Sheet or Slides link into an embedded (editable) document
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_gdocscallback($link) {
+    $embedcode = '<iframe height="620" width="100%" border="0" src="//docs.google.com/';
+    $embedcode .= $link[4].'/'; // Service type is in 4th capturing group of regex.
+    $embedcode .= $link[5].'/'; // Unsure letter is always the same.
+    $embedcode .= $link[6].'/'; // Google Doc IDs are in the 6th capturing group of the regex.
+
+    // Google forms follow a slightly different logic.
+    if ($link[4] = 'forms') {
+        $embedcode .= '';
+    } else {
+        $embedcode .= 'edit?usp=sharing';
+    }
+
+    $embedcode .= '"></iframe>';
+
+    return $embedcode;
+}
+
+/**
+ * Turns a GSuite owned and shared Google Doc, Drawing, Form, Sheet or Slides link into an embedded (editable) document
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_gsuitecallback($link) {
+    $embedcode = '<iframe height="620" width="100%" border="0" src="//docs.google.com/';
+    $embedcode .= $link[6].'/'; // Service type is in 6th capturing group of regex.
+    $embedcode .= $link[7].'/'; // Unsure letter is always the same.
+    $embedcode .= $link[8].'/'; // Google Doc IDs are in the 8th capturing group of the regex.
+
+    // Google forms follow a slightly different logic.
+    if ($link[6] = 'forms') {
+        $embedcode .= '';
+    } else {
+        $embedcode .= 'edit?usp=sharing';
+    }
+
+    $embedcode .= '"></iframe>';
 
     return $embedcode;
 }
@@ -403,6 +478,22 @@ function filter_multiembed_soundcloudcallback($link) {
 }
 
 /**
+ * Turns a Sutori link into an embedded timeline
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_sutoricallback($link) {
+    $embedcode = '<script src="https://d1ox703z8b11rg.cloudfront.net/assets/iframeResizer.js"></script>';
+    $embedcode .= '<iframe src="//www.sutori.com/timeline/';
+    $embedcode .= $link[4]; // Sutori timelines IDs are in the 4th capturing group of the regex.
+    $embedcode .= '/embed" width="100%" scrolling="no" frameborder="0" allowfullscreen></iframe>';
+    $embedcode .= '<script src="https://d1ox703z8b11rg.cloudfront.net/assets/iframeResizer.executer.js"></script>';
+
+    return $embedcode;
+}
+
+/**
  * Turns a TED link into an embedded video
  * iframe code from www.ted.com website
  *
@@ -419,6 +510,23 @@ function filter_multiembed_tedcallback($link) {
 }
 
 /**
+ * Turns a Thinglink link into an embedded image
+ * iframe code from www.thinglink.com website
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_thinglinkcallback($link) {
+    $embedcode = '<iframe width="800" height="500" src="//www.thinglink.com/card/';
+    $embedcode .= $link[4]; // Thinglink image IDs are in the 4th capturing group of the regex.
+    $embedcode .= '" type="text/html" frameborder="0" webkitallowfullscreen mozallowfullscreen';
+    $embedcode .= ' allowfullscreen scrolling="no"></iframe>';
+
+    return $embedcode;
+}
+
+
+/**
  * Turns a YouTube link into an embedded video
  * iframe code from www.youtube.com website
  *
@@ -426,7 +534,7 @@ function filter_multiembed_tedcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_youtubecallback($link) {
-    $embedcode = '<iframe width="560" height="315" src="https://www.youtube.com/embed/';
+    $embedcode = '<iframe width="560" height="315" src="//www.youtube.com/embed/';
     $embedcode .= $link[5]; // YouTube video IDs are in the 5th capturing group of the regex.
     $embedcode .= '" frameborder="0" allowfullscreen></iframe>';
 

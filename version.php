@@ -18,15 +18,15 @@
  * Multi-Embed Filter version info
  *
  * @package    filter_multiembed
- * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
+ * @copyright  2016-2017 Frederic Nevers, www.iteachwithmoodle.com
  * @author     Frederic Nevers
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2016112001;
+$plugin->version   = 2017032605;
 $plugin->requires  = 2015051108;
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release = '1.1';
+$plugin->release = '3.2';
 $plugin->component = 'filter_multiembed';

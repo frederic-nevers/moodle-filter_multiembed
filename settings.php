@@ -18,7 +18,7 @@
  * Multi-Embed Filter settings
  *
  * @package    filter_multiembed
- * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
+ * @copyright  2016-2017 Frederic Nevers, www.iteachwithmoodle.com
  * @author     Frederic Nevers
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,6 +26,11 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
+
+    $settings->add(new admin_setting_configtext('filter_multiembed/googledomain',
+        get_string('googledomain', 'filter_multiembed'),
+        get_string('googledomain_desc', 'filter_multiembed'),
+        PARAM_TEXT));
 
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/codepen',
         get_string('codepen', 'filter_multiembed'),
@@ -40,6 +45,16 @@ if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/emaze',
         get_string('emaze', 'filter_multiembed'),
         get_string('emaze_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/gdocs',
+        get_string('gdocs', 'filter_multiembed'),
+        get_string('gdocs_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/gsuite',
+        get_string('gsuite', 'filter_multiembed'),
+        get_string('gsuite_desc', 'filter_multiembed'),
         1));
 
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/haiku',
@@ -97,9 +112,19 @@ if ($ADMIN->fulltree) {
         get_string('soundcloud_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/sutori',
+        get_string('sutori', 'filter_multiembed'),
+        get_string('sutori_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/ted',
         get_string('ted', 'filter_multiembed'),
         get_string('ted_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/thinglink',
+        get_string('thinglink', 'filter_multiembed'),
+        get_string('thinglink_desc', 'filter_multiembed'),
         1));
 
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/youtube',

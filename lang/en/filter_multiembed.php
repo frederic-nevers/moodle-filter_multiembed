@@ -18,7 +18,7 @@
  * Multi-Embed Filter Language File
  *
  * @package    filter_multiembed
- * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
+ * @copyright  2016-2017 Frederic Nevers, www.iteachwithmoodle.com
  * @author     Frederic Nevers
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -34,6 +34,15 @@ $string['desmos_desc'] = 'Embed Desmos calculators';
 
 $string['emaze'] = 'Emaze';
 $string['emaze_desc'] = 'Embed Emaze presentations';
+
+$string['gdocs'] = 'Editable Google Documents, Drawings, Forms, Sheets or Slides';
+$string['gdocs_desc'] = 'Embed editable Google Documents, Drawings, Forms, Sheets or Slides';
+
+$string['gsuite'] = 'Editable document from GSuite (formerly Google Apps)';
+$string['gsuite_desc'] = 'Embed editable document from GSuite (formerly Google Apps)';
+
+$string['googledomain'] = 'Google Domain';
+$string['googledomain_desc'] = 'Please enter your Google domain here. For example school.edu';
 
 $string['haiku'] = 'Haiku';
 $string['haiku_desc'] = 'Embed Haiku decks';
@@ -68,8 +77,14 @@ $string['slides_desc'] = 'Embed Slid.es presentations';
 $string['soundcloud'] = 'Soundcloud';
 $string['soundcloud_desc'] = 'Embed Soundcloud tracks';
 
+$string['sutori'] = 'Sutori';
+$string['sutori_desc'] = 'Embed Sutori timelines';
+
 $string['ted'] = 'TED';
 $string['ted_desc'] = 'Embed TED Videos';
+
+$string['thinglink'] = 'ThingLink';
+$string['thinglink_desc'] = 'Embed ThingLink Images';
 
 $string['youtube'] = 'YouTube';
 $string['youtube_desc'] = 'Embed YouTube Videos';
