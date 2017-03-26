@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/frederic-nevers/moodle-filter_multiembed.svg?branch=master)](https://travis-ci.org/frederic-nevers/moodle-filter_multiembed)
 # Synopsis
 
-The Moodle Multi-Embed filter automatically turns URLs from supported services into embedded content, without any user input. By using the Moodle Multi-Embed, Moodle users (e.g. teachers) do not need to know how to 'embed' objects from other sites, they only need to know how to copy/paste a URL into their Moodle content, using the standard Moodle editor. The initial release of this plugin supports [14](#Supported-services) services. 
+The Moodle Multi-Embed filter automatically turns URLs from supported services into embedded content, without any user input. By using the Moodle Multi-Embed, Moodle users (e.g. teachers) do not need to know how to 'embed' objects from other sites, they only need to know how to copy/paste a URL into their Moodle content, using the standard Moodle editor. This release supports [20](#Supported-services) services. 
 
 # Example
 
