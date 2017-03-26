@@ -86,7 +86,7 @@ class filter_multiembed extends moodle_text_filter {
 
         // Search for GSuite shared documents.
         if (get_config('filter_multiembed', 'gsuite')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(docs\.))(google\.com)\/(.*?)\/(.*?)\/(.*?)';
+            $search = '/<a\s[^>]*href="(https?:\/\/(docs\.))(google\.com)\/(.*?)\/(.*?)';
             $search .= '\/(.*?)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
             $newtext = preg_replace_callback($search, 'filter_multiembed_gsuitecallback', $newtext);
         }
