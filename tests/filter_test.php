@@ -116,14 +116,12 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run Google Docs test.
         $gdocsout = '<iframe height="620" width="100%" border="0" src="//docs.google.com/document/';
-        $gdocsout .= 'd/1rIj1E-vS_cAJjg-awtILzypvomS1Yp0QQzEVkxEfNjs';
-        $gdocsout .= '/edit?usp=sharing"></iframe>';
+        $gdocsout .= 'd/1rIj1E-vS_cAJjg-awtILzypvomS1Yp0QQzEVkxEfNjs/edit?usp=sharing"></iframe>';
         $this->assertContains($gdocsout, $filteroutput, 'Gdocs filter fails');
 
         // Run GSuite test.
         $gsuiteout = '<iframe height="620" width="100%" border="0" src="//docs.google.com/document/';
-        $gsuiteout .= 'd/1IYYv4eIscPfQtJzIcveYufLMe8BghNBm6wuBGyai5hE';
-        $gsuiteout .= '/edit?usp=sharing"></iframe>';
+        $gsuiteout .= 'd/1IYYv4eIscPfQtJzIcveYufLMe8BghNBm6wuBGyai5hE/edit?usp=sharing"></iframe>';
         $this->assertContains($gsuiteout, $filteroutput, 'GSuite filter fails');
 
         // Run Haiku Deck test.
