@@ -256,13 +256,11 @@ function filter_multiembed_gdocscallback($link) {
     $embedcode .= $link[6].'/'; // Google Doc IDs are in the 6th capturing group of the regex.
 
     // Google forms follow a slightly different logic.
-    if ($link[4] = 'forms') {
-        $embedcode .= '';
+    if ($link[4] != 'forms') {
+        $embedcode .= 'edit?usp=sharing"></iframe>';
     } else {
-        $embedcode .= 'edit?usp=sharing';
+        $embedcode .= '"></iframe>';
     }
-
-    $embedcode .= '"></iframe>';
 
     return $embedcode;
 }
@@ -280,13 +278,11 @@ function filter_multiembed_gsuitecallback($link) {
     $embedcode .= $link[8].'/'; // Google Doc IDs are in the 8th capturing group of the regex.
 
     // Google forms follow a slightly different logic.
-    if ($link[6] = 'forms') {
-        $embedcode .= '';
+    if ($link[6] != 'forms') {
+        $embedcode .= 'edit?usp=sharing"></iframe>';
     } else {
-        $embedcode .= 'edit?usp=sharing';
+        $embedcode .= '"></iframe>';
     }
-
-    $embedcode .= '"></iframe>';
 
     return $embedcode;
 }
