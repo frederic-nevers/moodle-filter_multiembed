@@ -219,7 +219,7 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($slidesout, $filteroutput, 'Slid.es filter fails');
 
         // Run Smore test.
-        $smoreout = '<iframe width="100%" height="600" src="https://www.smore.com/j6ry-using-smore-in-your-classroom?';
+        $smoreout = '<iframe width="100%" height="600" src="//www.smore.com/j6ry-using-smore-in-your-classroom?';
         $smoreout .= 'embed=1" scrolling="auto" frameborder="0" allowtransparency="true" ';
         $smoreout .= 'style="min-width: 320px;border: none;"></iframe>';
         $this->assertContains($smoreout, $filteroutput, 'Smore filter fails');

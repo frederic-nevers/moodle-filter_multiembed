@@ -40,12 +40,13 @@ The following services are currently supported. Services will be added on a regu
    17. Quizlet - https://quizlet.com
    18. Riddle - https://www.riddle.com
    19. Slid.es - https://slid.es
-   20. SoundCloud - https://soundcloud.com
-   21. StudyStack - https://www.studystack.com
-   22. Sutori - https://www.sutori.com
-   23. TED - https://www.ted.com
-   24. ThingLink - https://www.thinglink.com
-   25. YouTube - https://www.youtube.com
+   20. Smore - https://www.smore.com
+   21. SoundCloud - https://soundcloud.com
+   22. StudyStack - https://www.studystack.com
+   23. Sutori - https://www.sutori.com
+   24. TED - https://www.ted.com
+   25. ThingLink - https://www.thinglink.com
+   26. YouTube - https://www.youtube.com
 
 # Services tested, not currently supported
 
