@@ -251,7 +251,7 @@ function filter_multiembed_classtoolscallback($link) {
         case 'brainybox':
             $embedcode = '<p align="center"><iframe scrolling="no" src="//www.classtools.net/brainybox/';
             $embedcode .= $link[5];
-            $embedcode .= '&widget=1" width="650" height=650" frameborder=0></iframe></p>';
+            $embedcode .= '&widget=1" width="650" height="650" frameborder=0></iframe></p>';
             break;
         case 'hexagon':
             $embedcode = '<iframe src="//www.classtools.net/hexagon/';
