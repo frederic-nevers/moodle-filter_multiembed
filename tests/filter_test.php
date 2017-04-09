@@ -205,7 +205,7 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($quizletout, $filteroutput, 'Quizlet filter fails');
 
         // Run Riddle test.
-        $riddletout = '<div class="riddle_target" data-rid-id="86733" data-fg="#1486cd" data-bg="#FFFFFF"';
+        $riddletout = '<div class="riddle_target" data-rid-id="86733" data-fg="#1486cd" data-bg="#FFFFFF" ';
         $riddletout .= 'style="margin:0 auto;max-width:640px">';
         $riddletout .= '<script src="https://www.riddle.com/files/js/embed.js"></script>';
         $riddletout .= '<iframe style="width:100%;height:300px;border:1px solid #cfcfcf"';
