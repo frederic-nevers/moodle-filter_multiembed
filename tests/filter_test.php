@@ -33,7 +33,7 @@ require_once($CFG->dirroot . '/filter/multiembed/filter.php');
  * PHP Unit test for the Multi-Embed filter
  *
  * Class filter_multiembed_testcase
- * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
+ * @copyright  2016-2017 Frederic Nevers, www.iteachwithmoodle.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter_multiembed_testcase extends basic_testcase {
@@ -64,9 +64,12 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Provide some working URLs to test.
         $urls = array(
+            'ClassTools' => 'http://www.classtools.net/brainybox/14_FYggLj',
             'CodePen' => 'http://codepen.io/superpikar/pen/wzYaRo',
             'Desmos' => 'https://www.desmos.com/calculator/cdxhggo4nc',
+            'DiagnosticQuestions' => 'https://diagnosticquestions.com/Questions/Go#/37889',
             'eMaze' => 'https://www.emaze.com/@AWRCLTWI/welcome-aboard',
+            'Etherpad' => 'https://etherpad.openstack.org/p/check',
             'Gdocs' => 'https://docs.google.com/document/d/1rIj1E-vS_cAJjg-awtILzypvomS1Yp0QQzEVkxEfNjs/edit',
             'Gsuite' => 'https://docs.google.com/a/lms.isf.edu.hk/document/d/1IYYv4eIscPfQtJzIcveYufLMe8BghNBm6wuBGyai5hE/edit',
             'Haiku' => 'https://www.haikudeck.com/parental-engagement-innovation-education-presentation-IAoLln02nF',
@@ -78,8 +81,11 @@ class filter_multiembed_testcase extends basic_testcase {
             'PollEv' => 'https://www.polleverywhere.com/ranking_polls/7LLFJoRV9oAoolv',
             'Prezi' => 'https://prezi.com/flgl_ykzaqqu/merging-humans-computers-the-next-10-years-of-computing/#',
             'Quizlet' => 'https://quizlet.com/68910157/flashcards',
+            'Riddle' => 'https://www.riddle.com/view/86733',
             'Slides' => 'http://slides.com/news/custom-fonts#/',
+            'Smore' => 'https://www.smore.com/j6ry-using-smore-in-your-classroom',
             'SoundCloud' => 'https://soundcloud.com/770rd/bentley-coupe-lil-yachty-ft-gucci-mane-prod-byou',
+            'Studystack' => 'http://www.studystack.com/flashcard-13053',
             'Sutori' => 'https://www.sutori.com/timeline/the-french-revolution-eb10',
             'TED' => 'https://www.ted.com/talks/sam_harris_can_we_build_ai_without_losing_control_over_it',
             'ThingLink' => 'https://www.thinglink.com/scene/737743411833995264',
@@ -96,6 +102,11 @@ class filter_multiembed_testcase extends basic_testcase {
         // Run filter on the input.
         $filteroutput = $this->filter->filter($filterinput);
 
+        // Run ClassTools test.
+        $classtoolsout = '<p align="center"><iframe scrolling="no" src="//www.classtools.net/brainybox/14_FYggLj&widget=1" ';
+        $classtoolsout .= 'width="650" height="650" frameborder=0></iframe></p>';
+        $this->assertContains($classtoolsout, $filteroutput, 'ClassTools filter fails');
+
         // Run CodePen test.
         $codepenout = '<iframe height="265" scrolling="no" src="//codepen.io/superpikar/embed/wzYaRo';
         $codepenout .= '/?height=265&amp;theme-id=0&amp;default-tab=css,result&embed-version=2" frameborder="no"';
@@ -108,11 +119,21 @@ class filter_multiembed_testcase extends basic_testcase {
         $desmosout .= ' width="200px" height="200px" style="border:1px solid #ccc; border-radius:5px"/></a>';
         $this->assertContains($desmosout, $filteroutput, 'Desmos filter fails');
 
+        // Run Diagnostic Questions test.
+        $diagnosticout = '<iframe width="664" height="568" src="https://diagnosticquestions.com/Questions/Embed#/37889"';
+        $diagnosticout .= ' frameborder="0"></iframe>';
+        $this->assertContains($diagnosticout, $filteroutput, 'Diagnostic Questions filter fails');
+
         // Run eMaze test.
         $emazeout = '<iframe src="//app.emaze.com/@AWRCLTWI/welcome-aboard';
         $emazeout .= '" width="960px" height="540px" seamless webkitallowfullscreen';
         $emazeout .= ' mozallowfullscreen allowfullscreen></iframe>';
         $this->assertContains($emazeout, $filteroutput, 'eMaze filter fails');
+
+        // Run Etherpad test.
+        $etherpadout = '<iframe name="embed_readwrite" src="//etherpad.openstack.org/p/check?showControls=';
+        $etherpadout .= 'true&showChat=true&showLineNumbers=true&useMonospaceFont=false" width=600 height=400></iframe>';
+        $this->assertContains($etherpadout, $filteroutput, 'Etherpad filter fails');
 
         // Run Google Docs test.
         $gdocsout = '<iframe height="620" width="100%" border="0" src="//docs.google.com/document/';
@@ -183,11 +204,25 @@ class filter_multiembed_testcase extends basic_testcase {
         $quizletout .= '/flashcards/embed" height="410" width="100%" style="border:0"></iframe>';
         $this->assertContains($quizletout, $filteroutput, 'Quizlet filter fails');
 
+        // Run Riddle test.
+        $riddletout = '<div class="riddle_target" data-rid-id="86733" data-fg="#1486cd" data-bg="#FFFFFF"';
+        $riddletout .= 'style="margin:0 auto;max-width:640px">';
+        $riddletout .= '<script src="https://www.riddle.com/files/js/embed.js"></script>';
+        $riddletout .= '<iframe style="width:100%;height:300px;border:1px solid #cfcfcf"';
+        $riddletout .= 'src="//riddle.com/a/86733?"></iframe></div>';
+        $this->assertContains($riddletout, $filteroutput, 'Riddle filter fails');
+
         // Run Slid.es test.
         $slidesout = '<iframe src="//slides.com/news/custom-fonts#';
         $slidesout .= '/embed" width="576" height="420" scrolling="no" frameborder="0"';
         $slidesout .= 'webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
         $this->assertContains($slidesout, $filteroutput, 'Slid.es filter fails');
+
+        // Run Smore test.
+        $smoreout = '<iframe width="100%" height="600" src="https://www.smore.com/j6ry-using-smore-in-your-classroom?';
+        $smoreout .= 'embed=1" scrolling="auto" frameborder="0" allowtransparency="true" ';
+        $smoreout .= 'style="min-width: 320px;border: none;"></iframe>';
+        $this->assertContains($smoreout, $filteroutput, 'Smore filter fails');
 
         // Run SoundCloud test.
         $soundcloudout = '<iframe width="100%" height="166" scrolling="no" frameborder="no"';
@@ -196,6 +231,11 @@ class filter_multiembed_testcase extends basic_testcase {
         $soundcloudout .= '&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;';
         $soundcloudout .= 'show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>';
         $this->assertContains($soundcloudout, $filteroutput, 'SoundCloud filter fails');
+
+        // Run Studystack test.
+        $studystackout = '<iframe class="studyStackFlashcardIframe" src="https://www.studystack.com/inewflashcard-13053" ';
+        $studystackout .= 'width="850" height="440" frameborder="0" scrolling="no" style="overflow:hidden"></iframe>';
+        $this->assertContains($studystackout, $filteroutput, 'Sutori filter fails');
 
         // Run Sutori test.
         $sutoriout = '<script src="https://d1ox703z8b11rg.cloudfront.net/assets/iframeResizer.js"></script>';

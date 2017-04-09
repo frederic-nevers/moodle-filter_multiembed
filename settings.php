@@ -32,6 +32,11 @@ if ($ADMIN->fulltree) {
         get_string('googledomain_desc', 'filter_multiembed'),
         PARAM_TEXT));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/classtools',
+        get_string('classtools', 'filter_multiembed'),
+        get_string('classtools_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/codepen',
         get_string('codepen', 'filter_multiembed'),
         get_string('codepen_desc', 'filter_multiembed'),
@@ -42,9 +47,19 @@ if ($ADMIN->fulltree) {
         get_string('desmos_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/diagnosticq',
+        get_string('diagnosticq', 'filter_multiembed'),
+        get_string('diagnosticq_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/emaze',
         get_string('emaze', 'filter_multiembed'),
         get_string('emaze_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/etherpad',
+        get_string('etherpad', 'filter_multiembed'),
+        get_string('etherpad_desc', 'filter_multiembed'),
         1));
 
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/gdocs',
@@ -102,14 +117,29 @@ if ($ADMIN->fulltree) {
         get_string('quizlet_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/riddle',
+        get_string('riddle', 'filter_multiembed'),
+        get_string('riddle_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/slides',
         get_string('slides', 'filter_multiembed'),
         get_string('slides_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/smore',
+        get_string('smore', 'filter_multiembed'),
+        get_string('smore_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/soundcloud',
         get_string('soundcloud', 'filter_multiembed'),
         get_string('soundcloud_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/studystack',
+        get_string('studystack', 'filter_multiembed'),
+        get_string('studystack_desc', 'filter_multiembed'),
         1));
 
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/sutori',

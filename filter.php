@@ -59,6 +59,13 @@ class filter_multiembed extends moodle_text_filter {
         // Return the original text if the regex fails.
         $newtext = $text;
 
+        // Search for ClassTools tools.
+        if (get_config('filter_multiembed', 'classtools')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(classtools\.net)\/(movietext|SMS|brainybox|';
+            $search .= 'qwikslides|telescopic|arcade|hexagon|random-name-picker)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_classtoolscallback', $newtext);
+        }
+
         // Search for CodePen snippets.
         if (get_config('filter_multiembed', 'codepen')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(codepen\.io)\/(.*?)\/(pen)\/(.*?)"(.*?)>(.*?)<\/a>/is';
@@ -71,10 +78,23 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_desmoscallback', $newtext);
         }
 
+        // Search for DiagnositcQuestion Questions and Quizzes.
+        if (get_config('filter_multiembed', 'diagnosticq')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(diagnosticquestions\.com)';
+            $search .= '\/(Questions|Quizzes)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_diagnosticqcallback', $newtext);
+        }
+
         // Search for eMaze.
         if (get_config('filter_multiembed', 'emaze')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(emaze\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
             $newtext = preg_replace_callback($search, 'filter_multiembed_emazecallback', $newtext);
+        }
+
+        // Search for Etherpad.
+        if (get_config('filter_multiembed', 'etherpad')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(etherpad\.)openstack\.org)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_etherpadcallback', $newtext);
         }
 
         // Search for Google Docs, Drawings, Forms, Presentations and Sheets.
@@ -146,16 +166,34 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_quizletcallback', $newtext);
         }
 
+        // Search for Riddle quizzes.
+        if (get_config('filter_multiembed', 'riddle')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(riddle\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_riddlecallback', $newtext);
+        }
+
         // Search for Slid.es presentations.
         if (get_config('filter_multiembed', 'slides')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(slides\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
             $newtext = preg_replace_callback($search, 'filter_multiembed_slidescallback', $newtext);
         }
 
+        // Search for Smore creations.
+        if (get_config('filter_multiembed', 'smore')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(smore\.com)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_smorecallback', $newtext);
+        }
+
         // Search for Soundcloud tracks.
         if (get_config('filter_multiembed', 'soundcloud')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(soundcloud\.com)\/(.*?)"(.*?)>(.*?)<\/a>/is';
             $newtext = preg_replace_callback($search, 'filter_multiembed_soundcloudcallback', $newtext);
+        }
+
+        // Search for Studystack items.
+        if (get_config('filter_multiembed', 'studystack')) {
+            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(studystack\.com)\/(.*?)\-(.*?)"(.*?)>(.*?)<\/a>/is';
+            $newtext = preg_replace_callback($search, 'filter_multiembed_studystackcallback', $newtext);
         }
 
         // Search for Sutori timelines.
@@ -194,6 +232,70 @@ class filter_multiembed extends moodle_text_filter {
 
 }
 
+/**
+ * Turns a ClassTools link into an embedded item
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_classtoolscallback($link) {
+
+    $itemtype = $link[4]; // ClassTools item type is in 4th group of regex.
+
+    switch ($itemtype) {
+        case 'arcade':
+            $embedcode = '<p align="center"><iframe scrolling="no" src="//www.classtools.net/widg/';
+            $embedcode .= $link[5];
+            $embedcode .= '" width="570" height="250" frameborder=0></iframe></p>';
+            break;
+        case 'brainybox':
+            $embedcode = '<p align="center"><iframe scrolling="no" src="//www.classtools.net/brainybox/';
+            $embedcode .= $link[5];
+            $embedcode .= '&widget=1" width="650" height=650" frameborder=0></iframe></p>';
+            break;
+        case 'hexagon':
+            $embedcode = '<iframe src="//www.classtools.net/hexagon/';
+            $embedcode .= $link[5];
+            $embedcode .= '" style="background-color:white;position:relative;top:0;left:0;width:750px';
+            $embedcode .= ';height:300px;overflow:none;border:none"></iframe>';
+            break;
+        case 'movietext':
+            $embedcode = '<iframe src="//www.classtools.net/movietext/';
+            $embedcode .= $link[5];
+            $embedcode .= '" style="position:relative;top:0;left:0;width:900px;height:650px';
+            $embedcode .= ';overflow:none;border:none"></iframe>';
+            break;
+        case 'qwikslides':
+            $embedcode = '<iframe src="//www.classtools.net/qwikslides/';
+            $embedcode .= $link[5];
+            $embedcode .= '" style="position:relative;top:0;left:0;width:675px;height:600px';
+            $embedcode .= ';overflow:none;border:none"></iframe>';
+            break;
+        case 'random-name-picker':
+            $embedcode = '<iframe src="//www.classtools.net/random-name-picker/';
+            $embedcode .= $link[5];
+            $embedcode .= '" style="position:relative;top:0;left:0;width:675px';
+            $embedcode .= ';height:600px;overflow:none;border:none"></iframe>';
+            break;
+        case 'SMS':
+            $embedcode = '<iframe src="//www.classtools.net/SMS/';
+            $embedcode .= $link[5];
+            $embedcode .= '" style="position:relative;top:0;left:0;width:267px';
+            $embedcode .= ';height:460px;overflow:none;border:none"></iframe>';
+            break;
+        case 'telescopic':
+            $embedcode = '<div id="telescopic" style="position:relative;padding-bottom:45%;height:0;">';
+            $embedcode .= '<iframe id="fr" src="//www.classtools.net/telescopic/';
+            $embedcode .= $link[5];
+            $embedcode .= '?embedded=1" style="position:absolute;top:0;left:0;width:100%';
+            $embedcode .= ';height:90%;overflow:hidden;border:none"></iframe></div>';
+            break;
+        default:
+            $embedcode = 'issue';
+    }
+
+    return $embedcode;
+}
 
 /**
  * Turns a CodePen link into an embedded snippet
@@ -229,6 +331,22 @@ function filter_multiembed_desmoscallback($link) {
 }
 
 /**
+ * Turns a Diagnostic Questions link into an embedded question or quizz
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_diagnosticqcallback($link) {
+    $embedcode = '<iframe width="664" height="568" src="https://diagnosticquestions.com/';
+    $embedcode .= $link[4]; // Diagnostic Questions item types are in 4th capturing group of the regex.
+    $embedcode .= '/Embed#/';
+    $embedcode .= $link[6]; // Diagnostic Questions IDs are in 4th capturing group of the regex.
+    $embedcode .= '" frameborder="0"></iframe>';
+
+    return $embedcode;
+}
+
+/**
  * Turns an emaze link into an embedded presentation
  *
  * @param  string $link HTML tag containing a link
@@ -239,6 +357,20 @@ function filter_multiembed_emazecallback($link) {
     $embedcode .= $link[4].'/'.$link[5]; // Emaze presentation IDs are in the 4th capturing group of the regex.
     $embedcode .= '" width="960px" height="540px" seamless webkitallowfullscreen';
     $embedcode .= ' mozallowfullscreen allowfullscreen></iframe>';
+
+    return $embedcode;
+}
+
+/**
+ * Turns an Etherpad link into an embedded document
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_etherpadcallback($link) {
+    $embedcode = '<iframe name="embed_readwrite" src="//etherpad.openstack.org/p/';
+    $embedcode .= $link[4]; // Etherpad document IDs are in the 4th capturing group of the regex.
+    $embedcode .= '?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false" width=600 height=400></iframe>';
 
     return $embedcode;
 }
@@ -274,14 +406,19 @@ function filter_multiembed_gdocscallback($link) {
 function filter_multiembed_gsuitecallback($link) {
     $embedcode = '<iframe height="620" width="100%" border="0" src="//docs.google.com/';
     $embedcode .= $link[6].'/'; // Service type is in 6th capturing group of regex.
-    $embedcode .= $link[7].'/'; // Unsure letter is always the same.
-    $embedcode .= $link[8].'/'; // Google Doc IDs are in the 8th capturing group of the regex.
+    $embedcode .= $link[7].'/'; // Unsure letter is always the same (should be a 'd').
+
+    if ($link[8] == 'e') {     // If the 8th capturing group is the letter 'e';
+        $embedcode .= $link[8].'/'.strtok($link[9], '/').'/'; // Then the Google Doc IDs are in the 9th group of the regex.
+    } else {
+        $embedcode .= strtok($link[8], '/').'/'; // Otherwise the IDs are in the 8th capturing group of the regex.
+    }
 
     // Google forms follow a slightly different logic.
     if ($link[6] != 'forms') {
         $embedcode .= 'edit?usp=sharing"></iframe>';
     } else {
-        $embedcode .= '"></iframe>';
+        $embedcode .= 'viewform"></iframe>';
     }
 
     return $embedcode;
@@ -440,6 +577,24 @@ function filter_multiembed_quizletcallback($link) {
 }
 
 /**
+ * Turns a Riddle link into an embedded quizz
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_riddlecallback($link) {
+    $embedcode = '<div class="riddle_target" data-rid-id="';
+    $embedcode .= basename($link[5]); // Riddle IDs are in the 5th capturing group of the regex.
+    $embedcode .= '" data-fg="#1486cd" data-bg="#FFFFFF" style="margin:0 auto;max-width:640px">';
+    $embedcode .= '<script src="https://www.riddle.com/files/js/embed.js"></script>';
+    $embedcode .= '<iframe style="width:100%;height:300px;border:1px solid #cfcfcf" src="//riddle.com/a/';
+    $embedcode .= basename($link[5]);
+    $embedcode .= '?"></iframe></div>';
+
+    return $embedcode;
+}
+
+/**
  * Turns a Slid.es link into an embedded presentation
  *
  * @param  string $link HTML tag containing a link
@@ -451,6 +606,21 @@ function filter_multiembed_slidescallback($link) {
     $embedcode .= strtok($link[5], "/"); // Slid.es slide IDs are in the 6th capturing group of the regex.
     $embedcode .= '/embed" width="576" height="420" scrolling="no" frameborder="0"';
     $embedcode .= 'webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+
+    return $embedcode;
+}
+
+/**
+ * Turns a Smore link into an embedded creation
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_smorecallback($link) {
+    $embedcode = '<iframe width="100%" height="600" src="//www.smore.com/';
+    $embedcode .= $link[4]; // Smore IDs are in the 4th capturing group of the regex.
+    $embedcode .= '?embed=1" scrolling="auto" frameborder="0" allowtransparency="true"';
+    $embedcode .= ' style="min-width: 320px;border: none;"></iframe>';
 
     return $embedcode;
 }
@@ -469,6 +639,134 @@ function filter_multiembed_soundcloudcallback($link) {
     $embedcode .= $link[4]; // Soundcloud tracks are in the 4th capturing group of the regex.
     $embedcode .= '&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;';
     $embedcode .= 'show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>';
+
+    return $embedcode;
+}
+
+/**
+ * Turns a Studystack link into an embedded item
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_studystackcallback($link) {
+
+    $itemtype = $link[4]; // Studystack item type is in 4th group of regex.
+
+    switch ($itemtype) {
+        case 'bugmatch':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'ibugmatch';
+            $scrolling = 'no';
+            $width = '800';
+            $height = '500';
+            break;
+        case 'choppedupwords':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'ichoppedupwords';
+            $scrolling = 'no';
+            $width = '900';
+            $height = '540';
+            break;
+        case 'crossword':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'icrossword';
+            $scrolling = 'yes';
+            $width = '950';
+            $height = '600';
+            break;
+        case 'fillin':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'ifillin';
+            $scrolling = 'yes';
+            $width = '747';
+            $height = '1000';
+            break;
+        case 'flashcard':
+            $iframeclass = 'studyStackFlashcardIframe';
+            $urlstem = 'inewflashcard';
+            $scrolling = 'no';
+            $width = '850';
+            $height = '440';
+            break;
+        case 'hangman':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'ihangman';
+            $scrolling = 'no';
+            $width = '520';
+            $height = '540';
+            break;
+        case 'hungrybug':
+            $iframeclass = 'studyStackFlashcardIframe';
+            $urlstem = 'ihungrybug';
+            $scrolling = 'no';
+            $width = '890';
+            $height = '600';
+            break;
+        case 'picmatch':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'ipicmatch';
+            $scrolling = 'no';
+            $width = '1038';
+            $height = '660';
+            break;
+        case 'quiz':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'iquiz';
+            $scrolling = 'yes';
+            $width = '727';
+            $height = '800';
+            break;
+        case 'studyslide':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'istudyslide';
+            $scrolling = 'yes';
+            $width = '1040';
+            $height = '800';
+            break;
+        case 'studystack':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'istudystack';
+            $scrolling = 'yes';
+            $width = '603';
+            $height = '380';
+            break;
+        case 'studytable':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'istudytable';
+            $scrolling = 'yes';
+            $width = '747';
+            $height = '1000';
+            break;
+        case 'test':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'itest';
+            $scrolling = 'yes';
+            $width = '727';
+            $height = '800';
+            break;
+        case 'wordscramble':
+            $iframeclass = 'studyStackMatchingIframe';
+            $urlstem = 'iwordscramble';
+            $scrolling = 'yes';
+            $width = '720';
+            $height = '480';
+            break;
+        default:
+            $iframeclass = 'issue';
+            $urlstem = 'issue';
+            $scrolling = 'no';
+            $width = '850';
+            $height = '440';
+    }
+
+    $embedcode = '<iframe class="';
+    $embedcode .= $iframeclass.'" src="https://www.studystack.com/';
+    $embedcode .= $urlstem.'-'.$link[5].'" '; // Studystack IDs are in the 5th capturing group of the regex.
+    $embedcode .= 'width="'.$width.'" height="'.$height;
+    $embedcode .= '" frameborder="0" scrolling="'.$scrolling;
+    $embedcode .= '" style="overflow:hidden"></iframe><br /><a href="http://www.studystack.com">';
+    $embedcode .= 'Flashcards and educational games by StudyStack</a><br />';
 
     return $embedcode;
 }

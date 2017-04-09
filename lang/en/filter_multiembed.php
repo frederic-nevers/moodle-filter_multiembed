@@ -26,14 +26,23 @@
 $string['filtername'] = 'Multi-Embed Filter';
 
 // Settings page.
+$string['classtools'] = 'ClassTools';
+$string['classtools_desc'] = 'Embed ClassTools tools';
+
 $string['codepen'] = 'Codepen';
 $string['codepen_desc'] = 'Embed Codepen snippets';
 
 $string['desmos'] = 'Desmos';
 $string['desmos_desc'] = 'Embed Desmos calculators';
 
+$string['diagnosticq'] = 'Diagnostic Questions';
+$string['diagnosticq_desc'] = 'Embed Diagnostic Questions Activities';
+
 $string['emaze'] = 'Emaze';
 $string['emaze_desc'] = 'Embed Emaze presentations';
+
+$string['etherpad'] = 'Etherpad';
+$string['etherpad_desc'] = 'Embed Etherpad documents';
 
 $string['gdocs'] = 'Editable Google Documents, Drawings, Forms, Sheets or Slides';
 $string['gdocs_desc'] = 'Embed editable Google Documents, Drawings, Forms, Sheets or Slides';
@@ -71,11 +80,20 @@ $string['prezi_desc'] = 'Embed Prezi presentations';
 $string['quizlet'] = 'Quizlet';
 $string['quizlet_desc'] = 'Embed Quizlet Activities';
 
+$string['riddle'] = 'Riddle';
+$string['riddle_desc'] = 'Embed Riddle quizzes';
+
 $string['slides'] = 'Slid.es';
 $string['slides_desc'] = 'Embed Slid.es presentations';
 
+$string['smore'] = 'Smore';
+$string['smore_desc'] = 'Embed Smore creations';
+
 $string['soundcloud'] = 'Soundcloud';
 $string['soundcloud_desc'] = 'Embed Soundcloud tracks';
+
+$string['studystack'] = 'Studystack';
+$string['studystack_desc'] = 'Embed Studystack items';
 
 $string['sutori'] = 'Sutori';
 $string['sutori_desc'] = 'Embed Sutori timelines';
