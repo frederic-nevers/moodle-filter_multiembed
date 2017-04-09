@@ -78,7 +78,7 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_desmoscallback', $newtext);
         }
 
-        // Search for DiagnositcQuestion Questions and Quizzes.
+        // Search for DiagnosticQuestions Questions and Quizzes.
         if (get_config('filter_multiembed', 'diagnosticq')) {
             $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(diagnosticquestions\.com)';
             $search .= '\/(Questions|Quizzes)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
