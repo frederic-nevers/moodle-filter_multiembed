@@ -645,7 +645,7 @@ function filter_multiembed_slidescallback($link) {
     $embedcode = '<iframe src="//slides.com/';
     $embedcode .= $link[4].'/'; // Slid.es user IDs are in the 5th capturing group of the regex.
     $embedcode .= strtok($link[5], "/"); // Slid.es slide IDs are in the 6th capturing group of the regex.
-    $embedcode .= '/embed" width="576" height="420" scrolling="no" frameborder="0"';
+    $embedcode .= 'embed" width="576" height="420" scrolling="no" frameborder="0"';
     $embedcode .= 'webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 
     return $embedcode;
