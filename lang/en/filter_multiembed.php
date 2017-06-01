@@ -29,8 +29,6 @@ $string['filtername'] = 'Multi-Embed Filter';
 
 $string['blacklistedpages'] = 'Black Listed Page types';
 $string['blacklistedpages_desc'] = 'Type a list of page bodyid for which you do not wish the contents to be filtered. ';
-$string['blacklistedpages_desc'] .= 'Separate each item with a comma, no spaces. This is useful for pages that show information';
-$string['blacklistedpages_desc'] .= 'in a tabular format';
 
 $string['googledomain'] = 'Google Domain';
 $string['googledomain_desc'] = 'Please enter your Google domain here. For example school.edu.';
