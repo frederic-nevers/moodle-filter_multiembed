@@ -185,7 +185,7 @@ class filter_multiembed extends moodle_text_filter {
 
         // Search for Prezi presentations.
         if (get_config('filter_multiembed', 'prezi')) {
-            $search = $regexstart.'(www\.)?)(prezi\.com)\/([^"]*)\/([^"]*)';
+            $search = $regexstart.'(www\.)?)(prezi\.com)\/([^"]*)';
             $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_prezicallback', $newtext);
         }
