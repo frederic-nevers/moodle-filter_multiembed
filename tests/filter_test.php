@@ -196,6 +196,7 @@ class filter_multiembed_testcase extends basic_testcase {
         // Run Prezi test.
         $preziout = '<iframe id="iframe_container" frameborder="0" webkitallowfullscreen="" mozallowfullscreen=""';
         $preziout .= 'allowfullscreen="" width="550" height="400" src="//prezi.com/embed/flgl_ykzaqqu';
+        $preziout .= '/merging-humans-computers-the-next-10-years-of-computing';
         $preziout .= '/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0"></iframe>';
         $this->assertContains($preziout, $filteroutput, 'Prezi filter fails');
 
