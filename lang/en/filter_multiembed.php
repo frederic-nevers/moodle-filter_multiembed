@@ -25,7 +25,20 @@
 
 $string['filtername'] = 'Multi-Embed Filter';
 
-// Settings page.
+// General filter settings.
+
+$string['blacklistedpages'] = 'Black Listed Page types';
+$string['blacklistedpages_desc'] = 'Type a list of page bodyid for which you do not wish the contents to be filtered. ';
+$string['blacklistedpages_desc'] .= 'Separate each item with a comma, no spaces. This is useful for pages that show information';
+$string['blacklistedpages_desc'] .= 'in a tabular format';
+
+$string['googledomain'] = 'Google Domain';
+$string['googledomain_desc'] = 'Please enter your Google domain here. For example school.edu.';
+
+$string['nofilter'] = 'No filter keyword';
+$string['nofilter_desc'] = 'Please enter your \'No filter\' keyword. One word only, no spaces.';
+
+// Services.
 $string['classtools'] = 'ClassTools';
 $string['classtools_desc'] = 'Embed ClassTools tools';
 
@@ -49,9 +62,6 @@ $string['gdocs_desc'] = 'Embed editable Google Documents, Drawings, Forms, Sheet
 
 $string['gsuite'] = 'Editable document from GSuite (formerly Google Apps)';
 $string['gsuite_desc'] = 'Embed editable document from GSuite (formerly Google Apps)';
-
-$string['googledomain'] = 'Google Domain';
-$string['googledomain_desc'] = 'Please enter your Google domain here. For example school.edu';
 
 $string['haiku'] = 'Haiku';
 $string['haiku_desc'] = 'Embed Haiku decks';

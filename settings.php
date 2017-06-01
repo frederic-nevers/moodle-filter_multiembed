@@ -27,11 +27,26 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
 
+    // General filter settings.
+    $settings->add(new admin_setting_configtext('filter_multiembed/blacklistedpages',
+        get_string('blacklistedpages', 'filter_multiembed'),
+        get_string('blacklistedpages_desc', 'filter_multiembed'),
+        'page-mod-assign-view,page-mod-assign-grading',
+        PARAM_TEXT));
+
     $settings->add(new admin_setting_configtext('filter_multiembed/googledomain',
         get_string('googledomain', 'filter_multiembed'),
         get_string('googledomain_desc', 'filter_multiembed'),
+        'yourgoogledomain.edu',
         PARAM_TEXT));
 
+    $settings->add(new admin_setting_configtext('filter_multiembed/nofilter',
+        get_string('nofilter', 'filter_multiembed'),
+        get_string('nofilter_desc', 'filter_multiembed'),
+        'nofilter',
+        PARAM_TEXT));
+
+    // Services.
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/classtools',
         get_string('classtools', 'filter_multiembed'),
         get_string('classtools_desc', 'filter_multiembed'),

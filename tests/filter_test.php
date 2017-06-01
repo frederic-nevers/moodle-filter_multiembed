@@ -189,8 +189,8 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($piktoout, $filteroutput, 'PiktoChart filter fails');
 
         // Run PollEv test.
-        $pollevout = '<iframe src="//embed.polleverywhere.com/ranking_polls/7LLFJoRV9oAoolv';
-        $pollevout .= '?controls=none&amp;short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>';
+        $pollevout = '<iframe src="https://embed.polleverywhere.com/ranking_polls/7LLFJoRV9oAoolv';
+        $pollevout .= '?controls=none&short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>';
         $this->assertContains($pollevout, $filteroutput, 'PollEv filter fails');
 
         // Run Prezi test.

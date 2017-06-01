@@ -31,7 +31,7 @@ defined('MOODLE_INTERNAL') || die();
  *
  * Class filter_multiembed
  *
- * @copyright  2016 Frederic Nevers, www.iteachwithmoodle.com
+ * @copyright  2016-2017 Frederic Nevers, www.iteachwithmoodle.com
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class filter_multiembed extends moodle_text_filter {
@@ -45,6 +45,7 @@ class filter_multiembed extends moodle_text_filter {
      * @return string $newtext filtered text
      */
     public function filter($text, array $options = array()) {
+        global $PAGE;
 
         if (!is_string($text) or empty($text)) {
             // Non-string data can not be filtered anyway.
@@ -56,167 +57,207 @@ class filter_multiembed extends moodle_text_filter {
             return $text;
         }
 
+        $blacklistpages = explode(',', get_config('filter_multiembed', 'blacklistedpages'));
+
+        foreach ($blacklistpages as $blacklistpage) {
+            // Do not filter content in page types specified by admin.
+            if ($PAGE->bodyid == $blacklistpage) {
+                return $text;
+            }
+        }
+
         // Return the original text if the regex fails.
         $newtext = $text;
 
+        // Some parts of the regexes are nearly always the same.
+        $nofilter = get_config('filter_multiembed', 'nofilter');
+        $regexstart = '/<a\s[^>]*href="(?![^ "]*\?'.$nofilter.')(https?:\/\/';
+        $regexend = '"([^>]*)>(.*?)<\/a>/is';
+
         // Search for ClassTools tools.
         if (get_config('filter_multiembed', 'classtools')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(classtools\.net)\/(movietext|SMS|brainybox|';
-            $search .= 'qwikslides|telescopic|arcade|hexagon|random-name-picker)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(classtools\.net)\/(movietext|SMS|';
+            $search .= 'brainybox|qwikslides|telescopic|arcade|hexagon|random-name-picker)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_classtoolscallback', $newtext);
         }
 
         // Search for CodePen snippets.
         if (get_config('filter_multiembed', 'codepen')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(codepen\.io)\/(.*?)\/(pen)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(codepen\.io)\/([^"]*?)\/(pen)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_codepencallback', $newtext);
         }
 
         // Search for Desmos calculators.
         if (get_config('filter_multiembed', 'desmos')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(desmos\.com)\/(calculator)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(desmos\.com)\/(calculator)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_desmoscallback', $newtext);
         }
 
         // Search for DiagnosticQuestions Questions and Quizzes.
         if (get_config('filter_multiembed', 'diagnosticq')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(diagnosticquestions\.com)';
-            $search .= '\/(Questions|Quizzes)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(diagnosticquestions\.com)\/(Questions|Quizzes)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_diagnosticqcallback', $newtext);
         }
 
         // Search for eMaze.
         if (get_config('filter_multiembed', 'emaze')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(emaze\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(emaze\.com)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_emazecallback', $newtext);
         }
 
         // Search for Etherpad.
         if (get_config('filter_multiembed', 'etherpad')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(etherpad\.)openstack\.org)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(etherpad\.)openstack\.org)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_etherpadcallback', $newtext);
         }
 
         // Search for Google Docs, Drawings, Forms, Presentations and Sheets.
         if (get_config('filter_multiembed', 'gdocs')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(docs\.))(google\.com)\/(document|drawings|forms|';
-            $search .= 'presentation|spreadsheets)\/(.*?)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(docs\.))(google\.com)\/(document|drawings|forms|';
+            $search .= 'presentation|spreadsheets)\/([^"]*)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_gdocscallback', $newtext);
         }
 
         // Search for GSuite shared documents.
         if (get_config('filter_multiembed', 'gsuite')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(docs\.))(google\.com)\/(.*?)\/(.*?)';
-            $search .= '\/(.*?)\/(.*?)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(docs\.))(google\.com)\/([^"]*)\/([^"]*)';
+            $search .= '\/([^"]*)\/([^"]*)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_gsuitecallback', $newtext);
         }
 
         // Search for Haiku decks.
         if (get_config('filter_multiembed', 'haiku')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(haikudeck\.com)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(haikudeck\.com)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_haikucallback', $newtext);
         }
 
         // Search for Imgur images.
         if (get_config('filter_multiembed', 'imgur')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(imgur\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(imgur\.com)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_imgurcallback', $newtext);
         }
 
         // Search for Infogr.am visualisations.
         if (get_config('filter_multiembed', 'infogram')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(infogr\.am)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(infogr\.am)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_infogramcallback', $newtext);
         }
 
         // Search for Padlet boards.
         if (get_config('filter_multiembed', 'padlet')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(padlet\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(padlet\.com)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_padletcallback', $newtext);
         }
 
         // Search for PBS videos.
         if (get_config('filter_multiembed', 'pbs')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(pbs\.org)\/(video)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(pbs\.org)\/(video)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_pbscallback', $newtext);
         }
 
         // Search for Piktochart visualisations.
         if (get_config('filter_multiembed', 'piktochart')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(magic\.)?)(piktochart\.com)\/(output)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(magic\.)?)(piktochart\.com)\/(output)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_piktochartcallback', $newtext);
         }
 
         // Search for PollEverywhere polls.
         if (get_config('filter_multiembed', 'pollev')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(polleverywhere\.com|PollEv.com)\/(discourses|';
-            $search .= 'polls|multiple_choice_polls|free_text_polls|ranking_polls)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(polleverywhere\.com|PollEv.com)\/(discourses|';
+            $search .= 'polls|multiple_choice_polls|free_text_polls|ranking_polls)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_pollevcallback', $newtext);
         }
 
         // Search for Prezi presentations.
         if (get_config('filter_multiembed', 'prezi')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(prezi\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(prezi\.com)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_prezicallback', $newtext);
         }
 
         // Search for Quizlet actvities.
         if (get_config('filter_multiembed', 'quizlet')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(quizlet\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(quizlet\.com)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_quizletcallback', $newtext);
         }
 
         // Search for Riddle quizzes.
         if (get_config('filter_multiembed', 'riddle')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(riddle\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(riddle\.com)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_riddlecallback', $newtext);
         }
 
         // Search for Slid.es presentations.
         if (get_config('filter_multiembed', 'slides')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(slides\.com)\/(.*?)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(slides\.com)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_slidescallback', $newtext);
         }
 
         // Search for Smore creations.
         if (get_config('filter_multiembed', 'smore')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(smore\.com)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(smore\.com)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_smorecallback', $newtext);
         }
 
         // Search for Soundcloud tracks.
         if (get_config('filter_multiembed', 'soundcloud')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(soundcloud\.com)\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(soundcloud\.com)\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_soundcloudcallback', $newtext);
         }
 
         // Search for Studystack items.
         if (get_config('filter_multiembed', 'studystack')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(studystack\.com)\/(.*?)\-(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(studystack\.com)\/([^"]*)\-([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_studystackcallback', $newtext);
         }
 
         // Search for Sutori timelines.
         if (get_config('filter_multiembed', 'sutori')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(sutori\.com)\/timeline\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(sutori\.com)\/timeline\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_sutoricallback', $newtext);
         }
 
         // Search for TED Videos.
         if (get_config('filter_multiembed', 'ted')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(ted\.com)\/talks\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(ted\.com)\/talks\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_tedcallback', $newtext);
         }
 
         // Search for Thinglink images.
         if (get_config('filter_multiembed', 'thinglink')) {
-            $search = '/<a\s[^>]*href="(https?:\/\/(www\.)?)(thinglink\.com)\/scene\/(.*?)"(.*?)>(.*?)<\/a>/is';
+            $search = $regexstart.'(www\.)?)(thinglink\.com)\/scene\/([^"]*)';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_thinglinkcallback', $newtext);
         }
 
         if (get_config('filter_multiembed', 'youtube')) {
-            $search = '/<a\s[^>]*href="((https?:\/\/(www\.)?)(youtube\.com|youtu\.be|youtube\.googleapis.com)';
-            $search .= '\/(?:embed\/|v\/|watch\?v=|watch\?.+?&amp;v=|watch\?.+?&v=)?((\w|-){11})(.*?))"(.*?)>(.*?)<\/a>/is';
+            $search = '/<a\s[^>]*href="((?![^ "]*\?'.$nofilter.')';
+            $search .= '(https?:\/\/(www\.)?)(youtube\.com|youtu\.be|youtube\.googleapis.com)';
+            $search .= '\/(?:embed\/|v\/|watch\?v=|watch\?.+?&amp;v=|watch\?.+?&v=)?((\w|-){11})(.*?))';
+            $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_youtubecallback', $newtext);
         }
 
@@ -536,11 +577,11 @@ function filter_multiembed_piktochartcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_pollevcallback($link) {
-    $embedcode = '<iframe src="//embed.polleverywhere.com/';
+    $embedcode = '<iframe src="https://embed.polleverywhere.com/';
     $embedcode .= $link[4].'/'; // Type of activity.
     // Strip any unwanted parts of ID.
     $embedcode .= strtok($link[5], "/"); // PollEv IDs are in the 5th capturing group of the regex.
-    $embedcode .= '?controls=none&amp;short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>';
+    $embedcode .= '?controls=none&short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>';
 
     return $embedcode;
 }
