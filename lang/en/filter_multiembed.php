@@ -37,6 +37,9 @@ $string['nofilter'] = 'No filter keyword';
 $string['nofilter_desc'] = 'Please enter your \'No filter\' keyword. One word only, no spaces.';
 
 // Services.
+$string['bookcreator'] = 'Book Creator';
+$string['bookcreator_desc'] = 'Embed Book Creator Books';
+
 $string['classtools'] = 'ClassTools';
 $string['classtools_desc'] = 'Embed ClassTools tools';
 
@@ -114,5 +117,3 @@ $string['thinglink_desc'] = 'Embed ThingLink Images';
 
 $string['youtube'] = 'YouTube';
 $string['youtube_desc'] = 'Embed YouTube Videos';
-
-

@@ -64,6 +64,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Provide some working URLs to test.
         $urls = array(
+            'BookCreator' => 'https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig',
             'ClassTools' => 'http://www.classtools.net/brainybox/14_FYggLj',
             'CodePen' => 'http://codepen.io/superpikar/pen/wzYaRo',
             'Desmos' => 'https://www.desmos.com/calculator/cdxhggo4nc',
@@ -101,6 +102,27 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run filter on the input.
         $filteroutput = $this->filter->filter($filterinput);
+
+        // Run Book Creator test.
+        $bookcreatorout = '<div style="display:inline-block;vertical-align:top;width:300px;margin:20px auto;color:#333;';
+        $bookcreatorout .= 'background:#fff;border:1px solid #ddd;line-height:1.2;text-decoration:none;padding:0;">';
+        $bookcreatorout .= '<a href="https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig"';
+        $bookcreatorout .= ' style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
+        $bookcreatorout .= 'padding:0;font-weight:normal;" target="_blank">';
+        $bookcreatorout .= '<img src="https://read.bookcreator.com/assets/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig/cover"';
+        $bookcreatorout .= 'style="max-height:300px;max-width:100%;display:block;margin:0 auto;padding:0;border:none;" alt=""/></a>';
+        $bookcreatorout .= '<div style="display:block;padding:20px;overflow:hidden;overflow-x:hidden;border-top:1px solid #ddd;">';
+        $bookcreatorout .= '<div style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
+        $bookcreatorout .= 'padding:0;font-weight:normal;font-size:16px;margin:0 0 0.5em;">';
+        $bookcreatorout .= '<a href="https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig" ';
+        $bookcreatorout .= 'style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
+        $bookcreatorout .= 'padding:0;font-weight:normal;" target="_blank">Click to read this book, made with Book Creator</a></div>';
+        $bookcreatorout .= '<div style="display:block;color:#455a64;line-height:1.2;text-decoration:none;text-align:left;';
+        $bookcreatorout .= 'padding:0;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;">';
+        $bookcreatorout .= '<a href="https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig" ';
+        $bookcreatorout .= 'style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
+        $bookcreatorout .= 'padding:0;font-weight:normal;" target="_blank">https://read.bookcreator.com</a></div></div></div>';
+        $this->assertContains($bookcreatorout, $filteroutput, 'Book Creator filter fails');
 
         // Run ClassTools test.
         $classtoolsout = '<p align="center"><iframe scrolling="no" src="//www.classtools.net/brainybox/14_FYggLj&widget=1" ';

@@ -74,6 +74,13 @@ class filter_multiembed extends moodle_text_filter {
         $regexstart = '/<a\s[^>]*href="(?![^ "]*\?'.$nofilter.')(https?:\/\/';
         $regexend = '"([^>]*)>(.*?)<\/a>/is';
 
+        // Search for Book Creator books.
+        if (get_config('filter_multiembed', 'bookcreator')) {
+            $search = $regexstart.'(app|read\.)?)(bookcreator\.com)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
+            $newtext = preg_replace_callback($search, 'filter_multiembed_bookcreatorcallback', $newtext);
+        }
+
         // Search for ClassTools tools.
         if (get_config('filter_multiembed', 'classtools')) {
             $search = $regexstart.'(www\.)?)(classtools\.net)\/(movietext|SMS|';
@@ -271,6 +278,45 @@ class filter_multiembed extends moodle_text_filter {
         return $newtext;
     }
 
+}
+
+/**
+ * Turns a Book Creator link into an embedded book reader
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_bookcreatorcallback($link) {
+    $embedcode = '<div style="display:inline-block;vertical-align:top;width:300px;margin:20px auto;color:#333;';
+    $embedcode .= 'background:#fff;border:1px solid #ddd;line-height:1.2;text-decoration:none;padding:0;">';
+    $embedcode .= '<a href="https://read.bookcreator.com/';
+    $embedcode .= $link[4]; // Book creator first ID is in 4th capturing group of the regex.
+    $embedcode .= '/';
+    $embedcode .= $link[5]; // Book creator second ID ID is in 6th capturing group of the regex.
+    $embedcode .= '" style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;padding:0;';
+    $embedcode .= 'font-weight:normal;" target="_blank"><img src="https://read.bookcreator.com/assets/';
+    $embedcode .= $link[4]; // Book creator first ID is in 4th capturing group of the regex.
+    $embedcode .= '/';
+    $embedcode .= $link[5]; // Book creator second ID ID is in 6th capturing group of the regex.
+    $embedcode .= '/cover" style="max-height:300px;max-width:100%;display:block;margin:0 auto;padding:0;border:none;"';
+    $embedcode .= 'alt=""/></a><div style="display:block;padding:20px;overflow:hidden;overflow-x:hidden;';
+    $embedcode .= 'border-top:1px solid #ddd;"><div style="display:block;color:#333;line-height:1.2;';
+    $embedcode .= 'text-decoration:none;text-align:left;padding:0;font-weight:normal;font-size:16px;margin:0 0 0.5em;">';
+    $embedcode .= '<a href="https://read.bookcreator.com/';
+    $embedcode .= $link[4]; // Book creator first ID is in 4th capturing group of the regex.
+    $embedcode .= '/';
+    $embedcode .= $link[5]; // Book creator second ID ID is in 6th capturing group of the regex.
+    $embedcode .= '" style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;padding:0;';
+    $embedcode .= 'font-weight:normal;" target="_blank">Click to read this book, made with Book Creator</a></div>';
+    $embedcode .= '<div style="display:block;color:#455a64;line-height:1.2;text-decoration:none;text-align:left;';
+    $embedcode .= 'padding:0;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;">;';
+    $embedcode .= '<a href="https://read.bookcreator.com/';
+    $embedcode .= $link[4]; // Book creator first ID is in 4th capturing group of the regex.
+    $embedcode .= '/';
+    $embedcode .= $link[5]; // Book creator second ID ID is in 6th capturing group of the regex.
+    $embedcode .= '" style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;padding:0;';
+    $embedcode .= 'font-weight:normal;" target="_blank">https://read.bookcreator.com</a></div></div></div>';
+    return $embedcode;
 }
 
 /**
