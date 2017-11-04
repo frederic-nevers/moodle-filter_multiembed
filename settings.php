@@ -52,6 +52,11 @@ if ($ADMIN->fulltree) {
         get_string('bookcreator_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/canva',
+        get_string('canva', 'filter_multiembed'),
+        get_string('canva_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/classtools',
         get_string('classtools', 'filter_multiembed'),
         get_string('classtools_desc', 'filter_multiembed'),

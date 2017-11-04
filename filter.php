@@ -81,6 +81,13 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_bookcreatorcallback', $newtext);
         }
 
+        // Search for Canva art.
+        if (get_config('filter_multiembed', 'canva')) {
+            $search = $regexstart.'(www\.)?)(canva\.com)\/(design)\/([^"]*)';
+            $search .= $regexend;
+            $newtext = preg_replace_callback($search, 'filter_multiembed_canvacallback', $newtext);
+        }
+
         // Search for ClassTools tools.
         if (get_config('filter_multiembed', 'classtools')) {
             $search = $regexstart.'(www\.)?)(classtools\.net)\/(movietext|SMS|';
@@ -316,6 +323,25 @@ function filter_multiembed_bookcreatorcallback($link) {
     $embedcode .= $link[5]; // Book creator second ID ID is in 6th capturing group of the regex.
     $embedcode .= '" style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;padding:0;';
     $embedcode .= 'font-weight:normal;" target="_blank">https://read.bookcreator.com</a></div></div></div>';
+    return $embedcode;
+}
+
+/**
+ * Turns a Canva link into an embedded artwork piece
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_canvacallback($link) {
+    $embedcode = '<div class="canva-embed" data-height-ratio="0.7095" data-design-id="';
+    $embedcode .= strtok($link[5], '/'); // Canva artwork ID is in 5th capturing group of the regex.
+    $embedcode .= '" style="padding:70.95% 5px 5px 5px;background:rgba(0,0,0,0.03);border-radius:8px;"></div>';
+    $embedcode .= '<script async src="https://sdk.canva.com/v1/embed.js"></script><a href="https://www.canva.com/design/';
+    $embedcode .= strtok($link[5], '/'); // Canva artwork ID is in 5th capturing group of the regex.
+    $embedcode .= '/view?utm_content=';
+    $embedcode .= strtok($link[5], '/'); // Canva artwork ID is in 5th capturing group of the regex.
+    $embedcode .= '&utm_campaign=designshare&utm_medium=embeds&utm_source=link" target="_blank">Created using Canva</a>';
+
     return $embedcode;
 }
 
@@ -657,8 +683,22 @@ function filter_multiembed_prezicallback($link) {
  */
 function filter_multiembed_quizletcallback($link) {
     $embedcode = '<iframe src="//quizlet.com/';
-    $embedcode .= $link[4]; // Quizlet IDs are in the 4th capturing group of the regex.
-    $embedcode .= '/flashcards/embed" height="410" width="100%" style="border:0"></iframe>';
+
+    // If URL is a study set, only keep the Quizlet ID from the 4th capturing group of the Regex.
+    if (strpos($link[4], '/') !== false) {
+        $embedcode .= strtok($link[4], '/');
+    } else {
+        $embedcode .= $link[4]; // If not a study set, no need to modify the 4th group of the Regex.
+    }
+
+    // Match the activity type found in original URL (if available, and supported).
+    if (preg_match('~\b(learn|flashcards|spell|test|match)\b~i', $link[5])) {
+        $embedcode .= '/'.$link[5];
+        $embedcode .= '/embed" height="500" width="100%" style="border:0"></iframe>';
+    } else {
+        // If activity type is not supported (or if study set), then use the default activity type.
+        $embedcode .= '/flashcards/embed" height="500" width="100%" style="border:0"></iframe>';
+    }
 
     return $embedcode;
 }

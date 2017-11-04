@@ -40,6 +40,9 @@ $string['nofilter_desc'] = 'Please enter your \'No filter\' keyword. One word on
 $string['bookcreator'] = 'Book Creator';
 $string['bookcreator_desc'] = 'Embed Book Creator Books';
 
+$string['canva'] = 'Canva';
+$string['canva_desc'] = 'Embed Canva artwork';
+
 $string['classtools'] = 'ClassTools';
 $string['classtools_desc'] = 'Embed ClassTools tools';
 

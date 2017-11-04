@@ -65,6 +65,7 @@ class filter_multiembed_testcase extends basic_testcase {
         // Provide some working URLs to test.
         $urls = array(
             'BookCreator' => 'https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig',
+            'Canva' => 'https://www.canva.com/design/DACQO7blkSY/E3CcafRvC6J2TcPfo0kRGQ/edit',
             'ClassTools' => 'http://www.classtools.net/brainybox/14_FYggLj',
             'CodePen' => 'http://codepen.io/superpikar/pen/wzYaRo',
             'Desmos' => 'https://www.desmos.com/calculator/cdxhggo4nc',
@@ -109,20 +110,31 @@ class filter_multiembed_testcase extends basic_testcase {
         $bookcreatorout .= '<a href="https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig"';
         $bookcreatorout .= ' style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
         $bookcreatorout .= 'padding:0;font-weight:normal;" target="_blank">';
-        $bookcreatorout .= '<img src="https://read.bookcreator.com/assets/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig/cover"';
-        $bookcreatorout .= ' style="max-height:300px;max-width:100%;display:block;margin:0 auto;padding:0;border:none;" alt=""/></a>';
+        $bookcreatorout .= '<img src="https://read.bookcreator.com/assets/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig';
+        $bookcreatorout .= '/cover"';
+        $bookcreatorout .= ' style="max-height:300px;max-width:100%;display:block;margin:0 auto;padding:0;border:none;"';
+        $bookcreatorout .= 'alt=""/></a>';
         $bookcreatorout .= '<div style="display:block;padding:20px;overflow:hidden;overflow-x:hidden;border-top:1px solid #ddd;">';
         $bookcreatorout .= '<div style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
         $bookcreatorout .= 'padding:0;font-weight:normal;font-size:16px;margin:0 0 0.5em;">';
         $bookcreatorout .= '<a href="https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig" ';
         $bookcreatorout .= 'style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
-        $bookcreatorout .= 'padding:0;font-weight:normal;" target="_blank">Click to read this book, made with Book Creator</a></div>';
+        $bookcreatorout .= 'padding:0;font-weight:normal;" target="_blank">Click to read this book, made with Book Creator</a>';
+        $bookcreatorout .= '</div>';
         $bookcreatorout .= '<div style="display:block;color:#455a64;line-height:1.2;text-decoration:none;text-align:left;';
         $bookcreatorout .= 'padding:0;font-weight:bold;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;">';
         $bookcreatorout .= '<a href="https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig" ';
         $bookcreatorout .= 'style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
         $bookcreatorout .= 'padding:0;font-weight:normal;" target="_blank">https://read.bookcreator.com</a></div></div></div>';
         $this->assertContains($bookcreatorout, $filteroutput, 'Book Creator filter fails');
+
+        // Run Canva test.
+        $canvaout = '<div class="canva-embed" data-height-ratio="0.7095" data-design-id="DACQO7blkSY" ';
+        $canvaout .= 'style="padding:70.95% 5px 5px 5px;background:rgba(0,0,0,0.03);border-radius:8px;">';
+        $canvaout .= '</div><script async src="https://sdk.canva.com/v1/embed.js"></script>';
+        $canvaout .= '<a href="https://www.canva.com/design/DACQO7blkSY/view?utm_content=DACQO7blkSY&utm_campaign=';
+        $canvaout .= 'designshare&utm_medium=embeds&utm_source=link" target="_blank">Created using Canva</a>';
+        $this->assertContains($canvaout, $filteroutput, 'Canva filter fails');
 
         // Run ClassTools test.
         $classtoolsout = '<p align="center"><iframe scrolling="no" src="//www.classtools.net/brainybox/14_FYggLj&widget=1" ';
@@ -224,7 +236,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run Quizlet test.
         $quizletout = '<iframe src="//quizlet.com/68910157';
-        $quizletout .= '/flashcards/embed" height="410" width="100%" style="border:0"></iframe>';
+        $quizletout .= '/flashcards/embed" height="500" width="100%" style="border:0"></iframe>';
         $this->assertContains($quizletout, $filteroutput, 'Quizlet filter fails');
 
         // Run Riddle test.
