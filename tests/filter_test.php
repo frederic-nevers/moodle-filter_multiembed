@@ -112,7 +112,7 @@ class filter_multiembed_testcase extends basic_testcase {
         $bookcreatorout .= 'padding:0;font-weight:normal;" target="_blank">';
         $bookcreatorout .= '<img src="https://read.bookcreator.com/assets/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig';
         $bookcreatorout .= '/cover"';
-        $bookcreatorout .= ' style="max-height:300px;max-width:100%;display:block;margin:0 auto;padding:0;border:none;"';
+        $bookcreatorout .= ' style="max-height:300px;max-width:100%;display:block;margin:0 auto;padding:0;border:none;" ';
         $bookcreatorout .= 'alt=""/></a>';
         $bookcreatorout .= '<div style="display:block;padding:20px;overflow:hidden;overflow-x:hidden;border-top:1px solid #ddd;">';
         $bookcreatorout .= '<div style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
