@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2017110401;
+$plugin->version   = 2018051301;
 $plugin->requires  = 2015051108;
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release = '3.4';
+$plugin->release = '3.5';
 $plugin->component = 'filter_multiembed';
