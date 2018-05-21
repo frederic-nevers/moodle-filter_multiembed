@@ -110,7 +110,8 @@ class filter_multiembed_testcase extends basic_testcase {
         $bookcreatorout .= '<a href="https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig"';
         $bookcreatorout .= ' style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;';
         $bookcreatorout .= 'padding:0;font-weight:normal;" target="_blank">';
-        $bookcreatorout .= '<img src="https://read.bookcreator.com/assets/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig';
+        $bookcreatorout .= '<img class="lazyload" data-src="https://read.bookcreator.com/assets/W9CW9hBf61bdhZr6CvqD4dNMbUP2/';
+        $bookcreatorout .= 'W0MDbmwVS0-Xizi_oVrPig';
         $bookcreatorout .= '/cover"';
         $bookcreatorout .= ' style="max-height:300px;max-width:100%;display:block;margin:0 auto;padding:0;border:none;" ';
         $bookcreatorout .= 'alt=""/></a>';
@@ -137,50 +138,53 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($canvaout, $filteroutput, 'Canva filter fails');
 
         // Run ClassTools test.
-        $classtoolsout = '<p align="center"><iframe scrolling="no" src="//www.classtools.net/brainybox/14_FYggLj&widget=1" ';
+        $classtoolsout = '<p align="center"><iframe class="lazyload" scrolling="no" ';
+        $classtoolsout = 'data-src="//www.classtools.net/brainybox/14_FYggLj&widget=1" ';
         $classtoolsout .= 'width="650" height="650" frameborder=0></iframe></p>';
         $this->assertContains($classtoolsout, $filteroutput, 'ClassTools filter fails');
 
         // Run CodePen test.
-        $codepenout = '<iframe height="265" scrolling="no" src="//codepen.io/superpikar/embed/wzYaRo';
+        $codepenout = '<iframe class="lazyload" height="265" scrolling="no" data-src="//codepen.io/superpikar/embed/wzYaRo';
         $codepenout .= '/?height=265&amp;theme-id=0&amp;default-tab=css,result&embed-version=2" frameborder="no"';
         $codepenout .= ' allowtransparency="true" allowfullscreen="true" style="width: 100%;"></iframe>';
         $this->assertContains($codepenout, $filteroutput, 'CodePen filter fails');
 
         // Run Desmos test.
         $desmosout = '<a title="View with the Desmos Graphing Calculator" href="https://www.desmos.com/calculator/';
-        $desmosout .= 'cdxhggo4nc">  <img src="https://s3.amazonaws.com/calc_thumbs/production/cdxhggo4nc.png"';
+        $desmosout .= 'cdxhggo4nc">  <img class="lazyload" ';
+        $desmosout .= 'data-src="https://s3.amazonaws.com/calc_thumbs/production/cdxhggo4nc.png"';
         $desmosout .= ' width="200px" height="200px" style="border:1px solid #ccc; border-radius:5px"/></a>';
         $this->assertContains($desmosout, $filteroutput, 'Desmos filter fails');
 
         // Run Diagnostic Questions test.
-        $diagnosticout = '<iframe width="664" height="568" src="https://diagnosticquestions.com/Questions/Embed#/37889"';
+        $diagnosticout = '<iframe class="lazyload" width="664" height="568" ';
+        $diagnosticout .= 'data-src="https://diagnosticquestions.com/Questions/Embed#/37889"';
         $diagnosticout .= ' frameborder="0"></iframe>';
         $this->assertContains($diagnosticout, $filteroutput, 'Diagnostic Questions filter fails');
 
         // Run eMaze test.
-        $emazeout = '<iframe src="//app.emaze.com/@AWRCLTWI/welcome-aboard';
+        $emazeout = '<iframe class="lazyload" data-src="//app.emaze.com/@AWRCLTWI/welcome-aboard';
         $emazeout .= '" width="960px" height="540px" seamless webkitallowfullscreen';
         $emazeout .= ' mozallowfullscreen allowfullscreen></iframe>';
         $this->assertContains($emazeout, $filteroutput, 'eMaze filter fails');
 
         // Run Etherpad test.
-        $etherpadout = '<iframe name="embed_readwrite" src="//etherpad.openstack.org/p/check?showControls=';
+        $etherpadout = '<iframe class="lazyload" name="embed_readwrite" data-src="//etherpad.openstack.org/p/check?showControls=';
         $etherpadout .= 'true&showChat=true&showLineNumbers=true&useMonospaceFont=false" width=600 height=400></iframe>';
         $this->assertContains($etherpadout, $filteroutput, 'Etherpad filter fails');
 
         // Run Google Docs test.
-        $gdocsout = '<iframe height="620" width="100%" border="0" src="//docs.google.com/document/';
+        $gdocsout = '<iframe class="lazyload" height="620" width="100%" border="0" data-src="//docs.google.com/document/';
         $gdocsout .= 'd/1rIj1E-vS_cAJjg-awtILzypvomS1Yp0QQzEVkxEfNjs/edit?usp=sharing"></iframe>';
         $this->assertContains($gdocsout, $filteroutput, 'Gdocs filter fails');
 
         // Run GSuite test.
-        $gsuiteout = '<iframe height="620" width="100%" border="0" src="//docs.google.com/document/';
+        $gsuiteout = '<iframe class="lazyload" height="620" width="100%" border="0" data-src="//docs.google.com/document/';
         $gsuiteout .= 'd/1IYYv4eIscPfQtJzIcveYufLMe8BghNBm6wuBGyai5hE/edit?usp=sharing"></iframe>';
         $this->assertContains($gsuiteout, $filteroutput, 'GSuite filter fails');
 
         // Run Haiku Deck test.
-        $haikuout = '<iframe src="//www.haikudeck.com/e/IAoLln02nF';
+        $haikuout = '<iframe class="lazyload" data-src="//www.haikudeck.com/e/IAoLln02nF';
         $haikuout .= '/?isUrlHashEnabled=false&isPreviewEnabled=false&isHeaderVisible=false"';
         $haikuout .= 'width="640" height="541" frameborder="0" marginheight="0" marginwidth="0"></iframe>';
         $this->assertContains($haikuout, $filteroutput, 'Haiku filter fails');
@@ -192,18 +196,18 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($imgurout, $filteroutput, 'Imgur filter fails');
 
         // Run Infogram test.
-        $infogramout = '<iframe src="//e.infogr.am/eu_fraud_map___international_version';
+        $infogramout = '<iframe class="lazyload" data-src="//e.infogr.am/eu_fraud_map___international_version';
         $infogramout .= '?src=embed" title="Top Earners" width="700" height="580"';
         $infogramout .= 'scrolling="no" frameborder="0" style="border:none;"></iframe>';
         $this->assertContains($infogramout, $filteroutput, 'Infogram filter fails');
 
         // Run Padlet test.
-        $padletout = '<iframe src="//padlet.com/embed/gwz9fjz4yiia';
+        $padletout = '<iframe class="lazyload" data-src="//padlet.com/embed/gwz9fjz4yiia';
         $padletout .= '" frameborder="0" width="100%" height="480px" style="padding:0;margin:0;border:none"></iframe>';
         $this->assertContains($padletout, $filteroutput, 'Padlet filter fails');
 
         // Run PBS test.
-        $pbsout = '<iframe width="512" height="376" src="//player.pbs.org/viralplayer/2365868384';
+        $pbsout = '<iframe class="lazyload" width="512" height="376" data-src="//player.pbs.org/viralplayer/2365868384';
         $pbsout .= '" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" seamless allowfullscreen></iframe>';
         $this->assertContains($pbsout, $filteroutput, 'PBS filter fails');
 
@@ -223,19 +227,19 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($piktoout, $filteroutput, 'PiktoChart filter fails');
 
         // Run PollEv test.
-        $pollevout = '<iframe src="https://embed.polleverywhere.com/ranking_polls/7LLFJoRV9oAoolv';
+        $pollevout = '<iframe class="lazyload" data-src="https://embed.polleverywhere.com/ranking_polls/7LLFJoRV9oAoolv';
         $pollevout .= '?controls=none&short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>';
         $this->assertContains($pollevout, $filteroutput, 'PollEv filter fails');
 
         // Run Prezi test.
-        $preziout = '<iframe id="iframe_container" frameborder="0" webkitallowfullscreen="" mozallowfullscreen=""';
-        $preziout .= 'allowfullscreen="" width="550" height="400" src="//prezi.com/embed/flgl_ykzaqqu';
+        $preziout = '<iframe id="iframe_container" class="lazyload" frameborder="0" webkitallowfullscreen="" mozallowfullscreen=""';
+        $preziout .= 'allowfullscreen="" width="550" height="400" data-src="//prezi.com/embed/flgl_ykzaqqu';
         $preziout .= '/merging-humans-computers-the-next-10-years-of-computing';
         $preziout .= '/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0"></iframe>';
         $this->assertContains($preziout, $filteroutput, 'Prezi filter fails');
 
         // Run Quizlet test.
-        $quizletout = '<iframe src="//quizlet.com/68910157';
+        $quizletout = '<iframe class="lazyload" data-src="//quizlet.com/68910157';
         $quizletout .= '/flashcards/embed" height="500" width="100%" style="border:0"></iframe>';
         $this->assertContains($quizletout, $filteroutput, 'Quizlet filter fails');
 
@@ -248,27 +252,29 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($riddletout, $filteroutput, 'Riddle filter fails');
 
         // Run Slid.es test.
-        $slidesout = '<iframe src="//slides.com/news/custom-fonts#';
+        $slidesout = '<iframe class="lazyload" data-src="//slides.com/news/custom-fonts#';
         $slidesout .= '/embed" width="576" height="420" scrolling="no" frameborder="0"';
         $slidesout .= 'webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
         $this->assertContains($slidesout, $filteroutput, 'Slid.es filter fails');
 
         // Run Smore test.
-        $smoreout = '<iframe width="100%" height="600" src="//www.smore.com/j6ry-using-smore-in-your-classroom?';
+        $smoreout = '<iframe class="lazyload" width="100%" height="600" ';
+        $smoreout .= 'data-src="//www.smore.com/j6ry-using-smore-in-your-classroom?';
         $smoreout .= 'embed=1" scrolling="auto" frameborder="0" allowtransparency="true" ';
         $smoreout .= 'style="min-width: 320px;border: none;"></iframe>';
         $this->assertContains($smoreout, $filteroutput, 'Smore filter fails');
 
         // Run SoundCloud test.
-        $soundcloudout = '<iframe width="100%" height="166" scrolling="no" frameborder="no"';
-        $soundcloudout .= ' src="//w.soundcloud.com/player/?url=https%3A//soundcloud.com/';
+        $soundcloudout = '<iframe class="lazyload" width="100%" height="166" scrolling="no" frameborder="no"';
+        $soundcloudout .= ' data-src="//w.soundcloud.com/player/?url=https%3A//soundcloud.com/';
         $soundcloudout .= '770rd/bentley-coupe-lil-yachty-ft-gucci-mane-prod-byou';
         $soundcloudout .= '&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;';
         $soundcloudout .= 'show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>';
         $this->assertContains($soundcloudout, $filteroutput, 'SoundCloud filter fails');
 
         // Run Studystack test.
-        $studystackout = '<iframe class="studyStackFlashcardIframe" src="https://www.studystack.com/inewflashcard-13053" ';
+        $studystackout = '<iframe class="studyStackFlashcardIframe lazyload" ';
+        $studystackout .= 'data-src="https://www.studystack.com/inewflashcard-13053" ';
         $studystackout .= 'width="850" height="440" frameborder="0" scrolling="no" style="overflow:hidden"></iframe>';
         $this->assertContains($studystackout, $filteroutput, 'Sutori filter fails');
 
@@ -280,19 +286,20 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($sutoriout, $filteroutput, 'Sutori filter fails');
 
         // Run TED test.
-        $tedout = '<iframe src="//embed.ted.com/talks/sam_harris_can_we_build_ai_without_losing_control_over_it';
+        $tedout = '<iframe class="lazyload" ;'
+        $tedout .= 'data-src="//embed.ted.com/talks/sam_harris_can_we_build_ai_without_losing_control_over_it';
         $tedout .= '" width="640" height="360" frameborder="0" scrolling="no" ';
         $tedout .= 'webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
         $this->assertContains($tedout, $filteroutput, 'TED filter fails');
 
         // Run ThingLink test.
-        $thinglinkout = '<iframe width="800" height="500" src="//www.thinglink.com/card/737743411833995264"';
+        $thinglinkout = '<iframe class="lazyload" width="800" height="500" data-src="//www.thinglink.com/card/737743411833995264"';
         $thinglinkout .= ' type="text/html" frameborder="0" webkitallowfullscreen mozallowfullscreen';
         $thinglinkout .= ' allowfullscreen scrolling="no"></iframe>';
         $this->assertContains($thinglinkout, $filteroutput, 'ThingLink filter fails');
 
         // Run YouTube test.
-        $youtubeout = '<iframe width="560" height="315" src="//www.youtube.com/embed/';
+        $youtubeout = '<iframe class="lazyload" width="560" height="315" data-src="//www.youtube.com/embed/';
         $youtubeout .= '4m5KrPXL4wI';
         $youtubeout .= '" frameborder="0" allowfullscreen></iframe>';
         $this->assertContains($youtubeout, $filteroutput, 'YouTube filter fails');

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<libraries>
+  <library>
+    <location>amd/src/lazysizes.js</location>
+    <name>Lazy Sizes</name>
+    <license>MIT</license>
+    <version>4.0.2</version>
+  </library>
+  <library>
+    <location>amd/build/lazysizes.min.js</location>
+    <name>Lazy Sizes</name>
+    <license>MIT</license>
+    <version>4.0.2</version>
+  </library>
+</libraries>

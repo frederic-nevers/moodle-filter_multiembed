@@ -301,7 +301,7 @@ function filter_multiembed_bookcreatorcallback($link) {
     $embedcode .= '/';
     $embedcode .= $link[5]; // Book creator second ID ID is in 6th capturing group of the regex.
     $embedcode .= '" style="display:block;color:#333;line-height:1.2;text-decoration:none;text-align:left;padding:0;';
-    $embedcode .= 'font-weight:normal;" target="_blank"><img src="https://read.bookcreator.com/assets/';
+    $embedcode .= 'font-weight:normal;" target="_blank"><img class="lazyload" data-src="https://read.bookcreator.com/assets/';
     $embedcode .= $link[4]; // Book creator first ID is in 4th capturing group of the regex.
     $embedcode .= '/';
     $embedcode .= $link[5]; // Book creator second ID ID is in 6th capturing group of the regex.
@@ -357,48 +357,48 @@ function filter_multiembed_classtoolscallback($link) {
 
     switch ($itemtype) {
         case 'arcade':
-            $embedcode = '<p align="center"><iframe scrolling="no" src="//www.classtools.net/widg/';
+            $embedcode = '<p align="center"><iframe class="lazyload" scrolling="no" data-src="//www.classtools.net/widg/';
             $embedcode .= $link[5];
             $embedcode .= '" width="570" height="250" frameborder=0></iframe></p>';
             break;
         case 'brainybox':
-            $embedcode = '<p align="center"><iframe scrolling="no" src="//www.classtools.net/brainybox/';
+            $embedcode = '<p align="center"><iframe class="lazyload" scrolling="no" data-src="//www.classtools.net/brainybox/';
             $embedcode .= $link[5];
             $embedcode .= '&widget=1" width="650" height="650" frameborder=0></iframe></p>';
             break;
         case 'hexagon':
-            $embedcode = '<iframe src="//www.classtools.net/hexagon/';
+            $embedcode = '<iframe class="lazyload" data-src="//www.classtools.net/hexagon/';
             $embedcode .= $link[5];
             $embedcode .= '" style="background-color:white;position:relative;top:0;left:0;width:750px';
             $embedcode .= ';height:300px;overflow:none;border:none"></iframe>';
             break;
         case 'movietext':
-            $embedcode = '<iframe src="//www.classtools.net/movietext/';
+            $embedcode = '<iframe class="lazyload" data-src="//www.classtools.net/movietext/';
             $embedcode .= $link[5];
             $embedcode .= '" style="position:relative;top:0;left:0;width:900px;height:650px';
             $embedcode .= ';overflow:none;border:none"></iframe>';
             break;
         case 'qwikslides':
-            $embedcode = '<iframe src="//www.classtools.net/qwikslides/';
+            $embedcode = '<iframe class="lazyload" data-src="//www.classtools.net/qwikslides/';
             $embedcode .= $link[5];
             $embedcode .= '" style="position:relative;top:0;left:0;width:675px;height:600px';
             $embedcode .= ';overflow:none;border:none"></iframe>';
             break;
         case 'random-name-picker':
-            $embedcode = '<iframe src="//www.classtools.net/random-name-picker/';
+            $embedcode = '<iframe class="lazyload" data-src="//www.classtools.net/random-name-picker/';
             $embedcode .= $link[5];
             $embedcode .= '" style="position:relative;top:0;left:0;width:675px';
             $embedcode .= ';height:600px;overflow:none;border:none"></iframe>';
             break;
         case 'SMS':
-            $embedcode = '<iframe src="//www.classtools.net/SMS/';
+            $embedcode = '<iframe class="lazyload" data-src="//www.classtools.net/SMS/';
             $embedcode .= $link[5];
             $embedcode .= '" style="position:relative;top:0;left:0;width:267px';
             $embedcode .= ';height:460px;overflow:none;border:none"></iframe>';
             break;
         case 'telescopic':
-            $embedcode = '<div id="telescopic" style="position:relative;padding-bottom:45%;height:0;">';
-            $embedcode .= '<iframe id="fr" src="//www.classtools.net/telescopic/';
+            $embedcode = '<div id="telescopic" class="lazyload" style="position:relative;padding-bottom:45%;height:0;">';
+            $embedcode .= '<iframe id="fr" data-src="//www.classtools.net/telescopic/';
             $embedcode .= $link[5];
             $embedcode .= '?embedded=1" style="position:absolute;top:0;left:0;width:100%';
             $embedcode .= ';height:90%;overflow:hidden;border:none"></iframe></div>';
@@ -417,7 +417,7 @@ function filter_multiembed_classtoolscallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_codepencallback($link) {
-    $embedcode = '<iframe height="265" scrolling="no" src="//codepen.io/';
+    $embedcode = '<iframe class="lazyload" height="265" scrolling="no" data-src="//codepen.io/';
     $embedcode .= $link[4]; // CodePen user ID is in 4th capturing group of the regex.
     $embedcode .= '/embed/';
     $embedcode .= $link[6]; // CodePen snippet ID is in 6th capturing group of the regex.
@@ -436,7 +436,7 @@ function filter_multiembed_codepencallback($link) {
 function filter_multiembed_desmoscallback($link) {
     $embedcode = '<a title="View with the Desmos Graphing Calculator" href="https://www.desmos.com/calculator/';
     $embedcode .= $link[5]; // Desmos graphing calculators are in 5th capturing group of the regex.
-    $embedcode .= '">  <img src="https://s3.amazonaws.com/calc_thumbs/production/';
+    $embedcode .= '">  <img class="lazyload" data-src="https://s3.amazonaws.com/calc_thumbs/production/';
     $embedcode .= $link[5].'.png'; // Desmos graphing calculators are in 5th capturing group of the regex.
     $embedcode .= '" width="200px" height="200px" style="border:1px solid #ccc; border-radius:5px"/></a>';
 
@@ -450,7 +450,7 @@ function filter_multiembed_desmoscallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_diagnosticqcallback($link) {
-    $embedcode = '<iframe width="664" height="568" src="https://diagnosticquestions.com/';
+    $embedcode = '<iframe class="lazyload" width="664" height="568" data-src="https://diagnosticquestions.com/';
     $embedcode .= $link[4]; // Diagnostic Questions item types are in 4th capturing group of the regex.
     $embedcode .= '/Embed#/';
     $embedcode .= $link[6]; // Diagnostic Questions IDs are in 4th capturing group of the regex.
@@ -466,7 +466,7 @@ function filter_multiembed_diagnosticqcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_emazecallback($link) {
-    $embedcode = '<iframe src="//app.emaze.com/';
+    $embedcode = '<iframe class="lazyload" data-src="//app.emaze.com/';
     $embedcode .= $link[4].'/'.$link[5]; // Emaze presentation IDs are in the 4th capturing group of the regex.
     $embedcode .= '" width="960px" height="540px" seamless webkitallowfullscreen';
     $embedcode .= ' mozallowfullscreen allowfullscreen></iframe>';
@@ -481,7 +481,7 @@ function filter_multiembed_emazecallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_etherpadcallback($link) {
-    $embedcode = '<iframe name="embed_readwrite" src="//etherpad.openstack.org/p/';
+    $embedcode = '<iframe class="lazyload" name="embed_readwrite" data-src="//etherpad.openstack.org/p/';
     $embedcode .= $link[4]; // Etherpad document IDs are in the 4th capturing group of the regex.
     $embedcode .= '?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false" width=600 height=400></iframe>';
 
@@ -495,7 +495,7 @@ function filter_multiembed_etherpadcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_gdocscallback($link) {
-    $embedcode = '<iframe height="620" width="100%" border="0" src="//docs.google.com/';
+    $embedcode = '<iframe class="lazyload" height="620" width="100%" border="0" data-src="//docs.google.com/';
     $embedcode .= $link[4].'/'; // Service type is in 4th capturing group of regex.
     $embedcode .= $link[5].'/'; // Unsure letter is always the same.
     $embedcode .= $link[6].'/'; // Google Doc IDs are in the 6th capturing group of the regex.
@@ -517,7 +517,7 @@ function filter_multiembed_gdocscallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_gsuitecallback($link) {
-    $embedcode = '<iframe height="620" width="100%" border="0" src="//docs.google.com/';
+    $embedcode = '<iframe class="lazyload" height="620" width="100%" border="0" data-src="//docs.google.com/';
     $embedcode .= $link[6].'/'; // Service type is in 6th capturing group of regex.
     $embedcode .= $link[7].'/'; // Unsure letter is always the same (should be a 'd').
 
@@ -544,7 +544,7 @@ function filter_multiembed_gsuitecallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_haikucallback($link) {
-    $embedcode = '<iframe src="//www.haikudeck.com/e/';
+    $embedcode = '<iframe class="lazyload" data-src="//www.haikudeck.com/e/';
     // Only keep the last 10 characters of any URL, those are the deck IDs.
     $embedcode .= substr($link[4], -10); // Haiku deck IDs are in the 4th capturing group of the regex.
     $embedcode .= '/?isUrlHashEnabled=false&isPreviewEnabled=false&isHeaderVisible=false"';
@@ -578,7 +578,7 @@ function filter_multiembed_imgurcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_infogramcallback($link) {
-    $embedcode = '<iframe src="//e.infogr.am/';
+    $embedcode = '<iframe class="lazyload" data-src="//e.infogr.am/';
     $embedcode .= $link[4]; // Infogr.am visualisation IDs are in the 5th capturing group of the regex.
     $embedcode .= '?src=embed" title="Top Earners" width="700" height="580"';
     $embedcode .= 'scrolling="no" frameborder="0" style="border:none;"></iframe>';
@@ -594,7 +594,7 @@ function filter_multiembed_infogramcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_padletcallback($link) {
-    $embedcode = '<iframe src="//padlet.com/embed/';
+    $embedcode = '<iframe class="lazyload" data-src="//padlet.com/embed/';
     $embedcode .= $link[5]; // Padlet IDs are in the 4th capturing group of the regex.
     $embedcode .= '" frameborder="0" width="100%" height="480px" style="padding:0;margin:0;border:none"></iframe>';
 
@@ -609,7 +609,7 @@ function filter_multiembed_padletcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_pbscallback($link) {
-    $embedcode = '<iframe width="512" height="376" src="//player.pbs.org/viralplayer/';
+    $embedcode = '<iframe class="lazyload" width="512" height="376" data-src="//player.pbs.org/viralplayer/';
     $embedcode .= $link[5]; // PBS IDs are in the 4th capturing group of the regex.
     $embedcode .= '" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" seamless allowfullscreen></iframe>';
 
@@ -649,7 +649,7 @@ function filter_multiembed_piktochartcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_pollevcallback($link) {
-    $embedcode = '<iframe src="https://embed.polleverywhere.com/';
+    $embedcode = '<iframe class="lazyload" data-src="https://embed.polleverywhere.com/';
     $embedcode .= $link[4].'/'; // Type of activity.
     // Strip any unwanted parts of ID.
     $embedcode .= strtok($link[5], "/"); // PollEv IDs are in the 5th capturing group of the regex.
@@ -666,8 +666,8 @@ function filter_multiembed_pollevcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_prezicallback($link) {
-    $embedcode = '<iframe id="iframe_container" frameborder="0" webkitallowfullscreen="" mozallowfullscreen=""';
-    $embedcode .= 'allowfullscreen="" width="550" height="400" src="//prezi.com/embed/';
+    $embedcode = '<iframe id="iframe_container" class="lazyload" frameborder="0" webkitallowfullscreen="" mozallowfullscreen=""';
+    $embedcode .= 'allowfullscreen="" width="550" height="400" data-src="//prezi.com/embed/';
     $embedcode .= $link[4]; // Prezi IDs are in the 4th capturing group of the regex.
     $embedcode .= '/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0"></iframe>';
 
@@ -682,7 +682,7 @@ function filter_multiembed_prezicallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_quizletcallback($link) {
-    $embedcode = '<iframe src="//quizlet.com/';
+    $embedcode = '<iframe class="lazyload" data-src="//quizlet.com/';
 
     // If URL is a study set, only keep the Quizlet ID from the 4th capturing group of the Regex.
     if (strpos($link[4], '/') !== false) {
@@ -728,7 +728,7 @@ function filter_multiembed_riddlecallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_slidescallback($link) {
-    $embedcode = '<iframe src="//slides.com/';
+    $embedcode = '<iframe class="lazyload" data-src="//slides.com/';
     $embedcode .= $link[4].'/'; // Slid.es user IDs are in the 5th capturing group of the regex.
     $embedcode .= strtok($link[5], "/"); // Slid.es slide IDs are in the 6th capturing group of the regex.
     $embedcode .= 'embed" width="576" height="420" scrolling="no" frameborder="0"';
@@ -744,7 +744,7 @@ function filter_multiembed_slidescallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_smorecallback($link) {
-    $embedcode = '<iframe width="100%" height="600" src="//www.smore.com/';
+    $embedcode = '<iframe class="lazyload" width="100%" height="600" src="//www.smore.com/';
     $embedcode .= $link[4]; // Smore IDs are in the 4th capturing group of the regex.
     $embedcode .= '?embed=1" scrolling="auto" frameborder="0" allowtransparency="true"';
     $embedcode .= ' style="min-width: 320px;border: none;"></iframe>';
@@ -761,8 +761,8 @@ function filter_multiembed_smorecallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_soundcloudcallback($link) {
-    $embedcode = '<iframe width="100%" height="166" scrolling="no" frameborder="no"';
-    $embedcode .= ' src="//w.soundcloud.com/player/?url=https%3A//soundcloud.com/';
+    $embedcode = '<iframe class="lazyload" width="100%" height="166" scrolling="no" frameborder="no"';
+    $embedcode .= ' data-src="//w.soundcloud.com/player/?url=https%3A//soundcloud.com/';
     $embedcode .= $link[4]; // Soundcloud tracks are in the 4th capturing group of the regex.
     $embedcode .= '&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;';
     $embedcode .= 'show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>';
@@ -888,7 +888,7 @@ function filter_multiembed_studystackcallback($link) {
     }
 
     $embedcode = '<iframe class="';
-    $embedcode .= $iframeclass.'" src="https://www.studystack.com/';
+    $embedcode .= $iframeclass.' lazyload" data-src="https://www.studystack.com/';
     $embedcode .= $urlstem.'-'.$link[5].'" '; // Studystack IDs are in the 5th capturing group of the regex.
     $embedcode .= 'width="'.$width.'" height="'.$height;
     $embedcode .= '" frameborder="0" scrolling="'.$scrolling;
@@ -922,7 +922,7 @@ function filter_multiembed_sutoricallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_tedcallback($link) {
-    $embedcode = '<iframe src="//embed.ted.com/talks/';
+    $embedcode = '<iframe class="lazyload" data-src="//embed.ted.com/talks/';
     $embedcode .= $link[4]; // TED video IDs are in the 4th capturing group of the regex.
     $embedcode .= '" width="640" height="360" frameborder="0" scrolling="no" ';
     $embedcode .= 'webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
@@ -938,7 +938,7 @@ function filter_multiembed_tedcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_thinglinkcallback($link) {
-    $embedcode = '<iframe width="800" height="500" src="//www.thinglink.com/card/';
+    $embedcode = '<iframe class="lazyload" width="800" height="500" data-src="//www.thinglink.com/card/';
     $embedcode .= $link[4]; // Thinglink image IDs are in the 4th capturing group of the regex.
     $embedcode .= '" type="text/html" frameborder="0" webkitallowfullscreen mozallowfullscreen';
     $embedcode .= ' allowfullscreen scrolling="no"></iframe>';
@@ -955,7 +955,7 @@ function filter_multiembed_thinglinkcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_youtubecallback($link) {
-    $embedcode = '<iframe width="560" height="315" src="//www.youtube.com/embed/';
+    $embedcode = '<iframe class="lazyload" width="560" height="315" data-src="//www.youtube.com/embed/';
     $embedcode .= $link[5]; // YouTube video IDs are in the 5th capturing group of the regex.
     $embedcode .= '" frameborder="0" allowfullscreen></iframe>';
 
