@@ -286,7 +286,7 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($sutoriout, $filteroutput, 'Sutori filter fails');
 
         // Run TED test.
-        $tedout = '<iframe class="lazyload" ;'
+        $tedout = '<iframe class="lazyload" ';
         $tedout .= 'data-src="//embed.ted.com/talks/sam_harris_can_we_build_ai_without_losing_control_over_it';
         $tedout .= '" width="640" height="360" frameborder="0" scrolling="no" ';
         $tedout .= 'webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
