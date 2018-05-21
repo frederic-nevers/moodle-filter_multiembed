@@ -744,7 +744,7 @@ function filter_multiembed_slidescallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_smorecallback($link) {
-    $embedcode = '<iframe class="lazyload" width="100%" height="600" src="//www.smore.com/';
+    $embedcode = '<iframe class="lazyload" width="100%" height="600" data-src="//www.smore.com/';
     $embedcode .= $link[4]; // Smore IDs are in the 4th capturing group of the regex.
     $embedcode .= '?embed=1" scrolling="auto" frameborder="0" allowtransparency="true"';
     $embedcode .= ' style="min-width: 320px;border: none;"></iframe>';
