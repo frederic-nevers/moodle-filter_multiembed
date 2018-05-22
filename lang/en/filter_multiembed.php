@@ -64,6 +64,9 @@ $string['etherpad_desc'] = 'Embed Etherpad documents';
 $string['gdocs'] = 'Editable Google Documents, Drawings, Forms, Sheets or Slides';
 $string['gdocs_desc'] = 'Embed editable Google Documents, Drawings, Forms, Sheets or Slides';
 
+$string['gdrive'] = 'File stored in Google Drive';
+$string['gdrive_desc'] = 'Embed any type of file stored in Google Drive';
+
 $string['gsuite'] = 'Editable document from GSuite (formerly Google Apps)';
 $string['gsuite_desc'] = 'Embed editable document from GSuite (formerly Google Apps)';
 

@@ -92,6 +92,11 @@ if ($ADMIN->fulltree) {
         get_string('gdocs_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/gdrive',
+        get_string('gdrive', 'filter_multiembed'),
+        get_string('gdrive_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/gsuite',
         get_string('gsuite', 'filter_multiembed'),
         get_string('gsuite_desc', 'filter_multiembed'),

@@ -139,6 +139,13 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_gdocscallback', $newtext);
         }
 
+        // Search for Google Drive documents (images, videos, PDFs, etc.).
+        if (get_config('filter_multiembed', 'gdrive')) {
+            $search = $regexstart.'(drive\.))(google\.com)\/(file)\/([^"]*)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
+            $newtext = preg_replace_callback($search, 'filter_multiembed_gdrivecallback', $newtext);
+        }
+
         // Search for GSuite shared documents.
         if (get_config('filter_multiembed', 'gsuite')) {
             $search = $regexstart.'(docs\.))(google\.com)\/([^"]*)\/([^"]*)';
@@ -506,6 +513,21 @@ function filter_multiembed_gdocscallback($link) {
     } else {
         $embedcode .= '"></iframe>';
     }
+
+    return $embedcode;
+}
+
+/**
+ * Turns a Google Drive document link into an embedded document. This works with PDF, images, videos, etc.
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_gdrivecallback($link) {
+    $embedcode = '<iframe class="lazyload" height="480" width="100%" data-src="//drive.google.com/file/';
+    $embedcode .= $link[5].'/'; // Unsure letter is always the same.
+    $embedcode .= $link[6].'/preview'; // Google Drive IDs are in the 6th capturing group of the regex.
+    $embedcode .= '"></iframe>';
 
     return $embedcode;
 }

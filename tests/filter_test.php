@@ -73,6 +73,7 @@ class filter_multiembed_testcase extends basic_testcase {
             'eMaze' => 'https://www.emaze.com/@AWRCLTWI/welcome-aboard',
             'Etherpad' => 'https://etherpad.openstack.org/p/check',
             'Gdocs' => 'https://docs.google.com/document/d/1rIj1E-vS_cAJjg-awtILzypvomS1Yp0QQzEVkxEfNjs/edit',
+            'Gdrive' => 'https://drive.google.com/file/d/1GECgpVvpwCCL4p5x13_cADhT11UIhNkf/view',
             'Gsuite' => 'https://docs.google.com/a/lms.isf.edu.hk/document/d/1IYYv4eIscPfQtJzIcveYufLMe8BghNBm6wuBGyai5hE/edit',
             'Haiku' => 'https://www.haikudeck.com/parental-engagement-innovation-education-presentation-IAoLln02nF',
             'Imgur' => 'http://imgur.com/gallery/SRtaf',
@@ -177,6 +178,11 @@ class filter_multiembed_testcase extends basic_testcase {
         $gdocsout = '<iframe class="lazyload" height="620" width="100%" border="0" data-src="//docs.google.com/document/';
         $gdocsout .= 'd/1rIj1E-vS_cAJjg-awtILzypvomS1Yp0QQzEVkxEfNjs/edit?usp=sharing"></iframe>';
         $this->assertContains($gdocsout, $filteroutput, 'Gdocs filter fails');
+
+        // Run Google Drive test.
+        $gdriveout = '<iframe class="lazyload" height="480" width="100%" data-src="//drive.google.com/file/';
+        $gdriveout .= 'd/1GECgpVvpwCCL4p5x13_cADhT11UIhNkf/preview"></iframe>';
+        $this->assertContains($gdriveout, $filteroutput, 'Gdrive filter fails');
 
         // Run GSuite test.
         $gsuiteout = '<iframe class="lazyload" height="620" width="100%" border="0" data-src="//docs.google.com/document/';
