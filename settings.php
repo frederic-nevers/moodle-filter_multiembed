@@ -47,6 +47,11 @@ if ($ADMIN->fulltree) {
         PARAM_TEXT));
 
     // Services.
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/learningapps',
+        get_string('learningapps', 'filter_multiembed'),
+        get_string('leraningapps_desc', 'filter_multiembed'),
+        1));
+    
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/bookcreator',
         get_string('bookcreator', 'filter_multiembed'),
         get_string('bookcreator_desc', 'filter_multiembed'),
