@@ -314,7 +314,7 @@ class filter_multiembed extends moodle_text_filter {
  */
 
 function filter_multiembed_learningappscallback($link) {
-    $embedcode = '<iframe src="https://learningapps.org/watch?';
+    $embedcode = '<iframe src="https://learningapps.org/watch?app=';
     $embedcode .= $link[4]; // learningapps IDs are in the 4th capturing group of the regex.
     $embedcode .= '"  style="border:0px;width:100%;height:500px" webkitallowfullscreen="true"';
     $embedcode .= ' mozallowfullscreen="true" allowfullscreen="true"></iframe>';
