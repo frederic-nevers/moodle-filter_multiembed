@@ -134,7 +134,7 @@ class filter_multiembed extends moodle_text_filter {
         // Search for Framapad.
         if (get_config('filter_multiembed', 'framapad') &&  stristr($text,'framapad.org')) {
             $search = $regexstart.'(annuel|semestriel|bimestriel|mypads|mensuel|hebdo)\.framapad\.org)\/([^"]*)\/([^"]*)';
-            $search .= $regexend;//return $search;
+            $search .= $regexend;
             preg_match($search, $text, $matches, PREG_OFFSET_CAPTURE, 0);
             if (stristr($matches[1][0],'framapad.org'))
               $newtext = filter_multiembed_framapadcallback ($matches);
