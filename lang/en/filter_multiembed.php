@@ -127,3 +127,6 @@ $string['thinglink_desc'] = 'Embed ThingLink Images';
 
 $string['youtube'] = 'YouTube';
 $string['youtube_desc'] = 'Embed YouTube Videos';
+
+$string['framatube'] = 'FramaTube';
+$string['framatube_desc'] = 'Embed FramaTube Videos';
