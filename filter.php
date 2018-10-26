@@ -282,6 +282,14 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_youtubecallback', $newtext);
         }
 
+        if (get_config('filter_multiembed', 'framatube')) {
+            $search = '/<a\s[^>]*href="((?![^ "]*\?'.$nofilter.')';
+            $search .= '(https:\/\/framatube\.org\/videos\/watch\/)(.*))';
+            $search .= $regexend;
+            $newtext = preg_replace_callback($search, 'filter_multiembed_framatubecallback', $newtext);
+        }
+
+
         // Exception checks.
         if (empty($newtext) or $newtext === $text) {
             // Error or not filtered.
@@ -983,3 +991,19 @@ function filter_multiembed_youtubecallback($link) {
 
     return $embedcode;
 }
+
+/**
+ * Turns a FramaTube link into an embedded video
+ * iframe code from framatube.org website
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_framatubecallback($link) {
+    $embedcode = '<iframe class="lazyload" width="560" height="315" data-src="//framatube.org/videos/embed/';
+    $embedcode .= $link[3]; // FramaTube video IDs are in the 3d capturing group of the regex.
+    $embedcode .= '" frameborder="0" allowfullscreen></iframe>';
+
+    return $embedcode;
+}
+
