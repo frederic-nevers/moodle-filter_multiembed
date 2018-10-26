@@ -291,7 +291,7 @@ class filter_multiembed extends moodle_text_filter {
 
         if (get_config('filter_multiembed', 'framatube')) {
             $search = '/<a\s[^>]*href="((?![^ "]*\?'.$nofilter.')';
-            $search .= '(https:\/\/framatube\.org\/videos\/watch\/)(.*))';
+            $search .= '(https:\/\/framatube\.org\/videos\/watch\/)(.{8}-.{4}-.{4}-.{4}-.{12}))';
             $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_framatubecallback', $newtext);
         }
