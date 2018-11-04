@@ -24,6 +24,7 @@
  */
 
 $string['filtername'] = 'Multi-Embed Filter';
+$string['privacy:metadata'] = 'The Multi-Embed filter plugin does not store any personal data.';
 
 // General filter settings.
 
