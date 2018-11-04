@@ -38,6 +38,9 @@ $string['nofilter'] = 'No filter keyword';
 $string['nofilter_desc'] = 'Please enter your \'No filter\' keyword. One word only, no spaces.';
 
 // Services.
+$string['learningapps'] = 'Learningapps';
+$string['learningapps_desc'] = 'Embed Learningapps';
+
 $string['bookcreator'] = 'Book Creator';
 $string['bookcreator_desc'] = 'Embed Book Creator Books';
 

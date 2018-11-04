@@ -64,6 +64,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Provide some working URLs to test.
         $urls = array(
+            'Learningapps' => 'https://learningapps.org/1653886',
             'BookCreator' => 'https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig',
             'Canva' => 'https://www.canva.com/design/DACQO7blkSY/E3CcafRvC6J2TcPfo0kRGQ/edit',
             'ClassTools' => 'http://www.classtools.net/brainybox/14_FYggLj',
@@ -105,6 +106,11 @@ class filter_multiembed_testcase extends basic_testcase {
         // Run filter on the input.
         $filteroutput = $this->filter->filter($filterinput);
 
+        // Run Learningapps test.
+        $learningappsout = '<iframe src="https://learningapps.org/watch?app=1653886" style="border:0px;width:100%;height:500px"'
+        $learningappsout .= ' webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>'
+        $this->assertContains($learningappsout, $filteroutput, 'Learningapps filter fails');
+        
         // Run Book Creator test.
         $bookcreatorout = '<div style="display:inline-block;vertical-align:top;width:300px;margin:20px auto;color:#333;';
         $bookcreatorout .= 'background:#fff;border:1px solid #ddd;line-height:1.2;text-decoration:none;padding:0;">';
