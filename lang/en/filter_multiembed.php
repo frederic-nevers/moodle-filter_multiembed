@@ -38,9 +38,6 @@ $string['nofilter'] = 'No filter keyword';
 $string['nofilter_desc'] = 'Please enter your \'No filter\' keyword. One word only, no spaces.';
 
 // Services.
-$string['learningapps'] = 'Learningapps';
-$string['learningapps_desc'] = 'Embed Learningapps';
-
 $string['bookcreator'] = 'Book Creator';
 $string['bookcreator_desc'] = 'Embed Book Creator Books';
 
@@ -82,6 +79,9 @@ $string['imgur_desc'] = 'Embed Imgur images';
 
 $string['infogram'] = 'Infogr.am';
 $string['infogram_desc'] = 'Embed Infogr.am visuals';
+
+$string['learningapps'] = 'Learningapps';
+$string['learningapps_desc'] = 'Embed Learningapps';
 
 $string['padlet'] = 'Padlet';
 $string['padlet_desc'] = 'Embed Padlet boards';

@@ -64,7 +64,6 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Provide some working URLs to test.
         $urls = array(
-            'Learningapps' => 'https://learningapps.org/1653886',
             'BookCreator' => 'https://read.bookcreator.com/W9CW9hBf61bdhZr6CvqD4dNMbUP2/W0MDbmwVS0-Xizi_oVrPig',
             'Canva' => 'https://www.canva.com/design/DACQO7blkSY/E3CcafRvC6J2TcPfo0kRGQ/edit',
             'ClassTools' => 'http://www.classtools.net/brainybox/14_FYggLj',
@@ -79,6 +78,7 @@ class filter_multiembed_testcase extends basic_testcase {
             'Haiku' => 'https://www.haikudeck.com/parental-engagement-innovation-education-presentation-IAoLln02nF',
             'Imgur' => 'http://imgur.com/gallery/SRtaf',
             'Infogram' => 'https://infogr.am/eu_fraud_map___international_version',
+            'Learningapps' => 'https://learningapps.org/1653886',
             'Padlet' => 'https://padlet.com/fnevers/gwz9fjz4yiia',
             'PBS' => 'http://www.pbs.org/video/2365868384/',
             'PiktoChart' => 'https://magic.piktochart.com/output/17277748-testy',
@@ -106,11 +106,6 @@ class filter_multiembed_testcase extends basic_testcase {
         // Run filter on the input.
         $filteroutput = $this->filter->filter($filterinput);
 
-        // Run Learningapps test.
-        $learningappsout = '<iframe src="https://learningapps.org/watch?app=1653886" style="border:0px;width:100%;height:500px"'
-        $learningappsout .= ' webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>'
-        $this->assertContains($learningappsout, $filteroutput, 'Learningapps filter fails');
-        
         // Run Book Creator test.
         $bookcreatorout = '<div style="display:inline-block;vertical-align:top;width:300px;margin:20px auto;color:#333;';
         $bookcreatorout .= 'background:#fff;border:1px solid #ddd;line-height:1.2;text-decoration:none;padding:0;">';
@@ -212,6 +207,11 @@ class filter_multiembed_testcase extends basic_testcase {
         $infogramout .= '?src=embed" title="Top Earners" width="700" height="580"';
         $infogramout .= 'scrolling="no" frameborder="0" style="border:none;"></iframe>';
         $this->assertContains($infogramout, $filteroutput, 'Infogram filter fails');
+
+        // Run Learningapps test.
+        $learningappsout = '<iframe src="https://learningapps.org/watch?app=1653886" style="border:0px;width:100%;height:500px"'
+        $learningappsout .= ' webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>'
+        $this->assertContains($learningappsout, $filteroutput, 'Learningapps filter fails');
 
         // Run Padlet test.
         $padletout = '<iframe class="lazyload" data-src="//padlet.com/embed/gwz9fjz4yiia';

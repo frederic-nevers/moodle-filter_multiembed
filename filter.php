@@ -74,14 +74,6 @@ class filter_multiembed extends moodle_text_filter {
         $regexstart = '/<a\s[^>]*href="(?![^ "]*\?'.$nofilter.')(https?:\/\/';
         $regexend = '"([^>]*)>(.*?)<\/a>/is';
 
-        // Search for Learningapps.
-        if (get_config('filter_multiembed', 'learningapps')) {
-            $search = $regexstart.'(learningapps\.org)\/([^"]*)';
-            $search .= $regexend;
-            $newtext = preg_replace_callback($search, 'filter_multiembed_learningappscallback', $newtext);
-        }
-
-        
         // Search for Book Creator books.
         if (get_config('filter_multiembed', 'bookcreator')) {
             $search = $regexstart.'(app|read\.)?)(bookcreator\.com)\/([^"]*)\/([^"]*)';
@@ -181,6 +173,13 @@ class filter_multiembed extends moodle_text_filter {
             $search = $regexstart.'(www\.)?)(infogr\.am)\/([^"]*)';
             $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_infogramcallback', $newtext);
+        }
+
+        // Search for Learningapps.
+        if (get_config('filter_multiembed', 'learningapps')) {
+            $search = $regexstart.'(www\.)?)(learningapps\.org)\/([^"]*)';
+            $search .= $regexend;
+            $newtext = preg_replace_callback($search, 'filter_multiembed_learningappscallback', $newtext);
         }
 
         // Search for Padlet boards.
@@ -300,26 +299,6 @@ class filter_multiembed extends moodle_text_filter {
         return $newtext;
     }
 
-}
-
-/**
- * Turns a learningapps link into an embedded app
- *
- * @param  string $link HTML tag containing a link
- * @return string HTML content after processing.
- */
- /*
-    <iframe src="https://learningapps.org/watch?app=1653886" 
-    style="border:0px;width:100%;height:500px" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
- */
-
-function filter_multiembed_learningappscallback($link) {
-    $embedcode = '<iframe src="https://learningapps.org/watch?app=';
-    $embedcode .= $link[4]; // learningapps IDs are in the 4th capturing group of the regex.
-    $embedcode .= '"  style="border:0px;width:100%;height:500px" webkitallowfullscreen="true"';
-    $embedcode .= ' mozallowfullscreen="true" allowfullscreen="true"></iframe>';
-
-    return $embedcode;
 }
 
 /**
@@ -635,6 +614,24 @@ function filter_multiembed_infogramcallback($link) {
 
     return $embedcode;
 }
+
+
+/**
+ * Turns a Learningapps link into an embedded app
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ *
+ */
+function filter_multiembed_learningappscallback($link) {
+    $embedcode = '<iframe src="https://learningapps.org/watch?app=';
+    $embedcode .= $link[4]; // Learningapps IDs are in the 4th capturing group of the regex.
+    $embedcode .= '"  style="border:0px;width:100%;height:500px" webkitallowfullscreen="true"';
+    $embedcode .= ' mozallowfullscreen="true" allowfullscreen="true"></iframe>';
+
+    return $embedcode;
+}
+
 
 /**
  * Turns a Padlet link into an embedded video
