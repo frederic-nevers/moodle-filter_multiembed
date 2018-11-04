@@ -210,7 +210,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run Learningapps test.
         $learningappsout = '<iframe src="https://learningapps.org/watch?app=1653886" style="border:0px;width:100%;height:500px"';
-        $learningappsout .= ' webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>'
+        $learningappsout .= ' webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
         $this->assertContains($learningappsout, $filteroutput, 'Learningapps filter fails');
 
         // Run Padlet test.
