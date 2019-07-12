@@ -283,8 +283,9 @@ class filter_multiembed extends moodle_text_filter {
 
         // Search for Vimeo Videos.
         if (get_config('filter_multiembed', 'vimeo')) {
-            $search = '/<a\s[^>]*href="((?![^ "]*\?'.$nofilter.')';
-            $search .= '(https?:\/\/vimeo\.com\/)([0-9]*)(\?.*)?)';
+            $search = $regexstart;
+            $search .= '(vimeo\.com\/)';
+            $search .= '([0-9]+))';
             $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_vimeocallback', $newtext);
         }
