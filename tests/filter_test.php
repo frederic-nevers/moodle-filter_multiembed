@@ -311,10 +311,10 @@ class filter_multiembed_testcase extends basic_testcase {
         $thinglinkout .= ' allowfullscreen scrolling="no"></iframe>';
         $this->assertContains($thinglinkout, $filteroutput, 'ThingLink filter fails');
 
-		// Run Vimeo test.
-		$vimeoout = '<iframe class="lazyload" width="560" height="315" data-src="//player.vimeo.com/video/243244233';
-		$vimeoout .= '" frameborder="0" allowfullscreen></iframe>';
-		$this->assertContains($vimeoout, $filteroutput, 'Vimeo filter fails');
+        // Run Vimeo test.
+        $vimeoout = '<iframe class="lazyload" width="560" height="315" data-src="//player.vimeo.com/video/243244233';
+        $vimeoout .= '" frameborder="0" allowfullscreen></iframe>';
+        $this->assertContains($vimeoout, $filteroutput, 'Vimeo filter fails');
 
         // Run YouTube test.
         $youtubeout = '<iframe class="lazyload" width="560" height="315" data-src="//www.youtube.com/embed/';
