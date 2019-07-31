@@ -127,3 +127,6 @@ $string['thinglink_desc'] = 'Embed ThingLink Images';
 
 $string['youtube'] = 'YouTube';
 $string['youtube_desc'] = 'Embed YouTube Videos';
+
+$string['vimeo'] = 'Vimeo';
+$string['vimeo_desc'] = 'Embed Vimeo Videos';

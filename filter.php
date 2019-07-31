@@ -281,6 +281,15 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_thinglinkcallback', $newtext);
         }
 
+        // Search for Vimeo Videos.
+        if (get_config('filter_multiembed', 'vimeo')) {
+            $search = $regexstart;
+            $search .= '(vimeo\.com\/)';
+            $search .= '([0-9]+))';
+            $search .= $regexend;
+            $newtext = preg_replace_callback($search, 'filter_multiembed_vimeocallback', $newtext);
+        }
+
         if (get_config('filter_multiembed', 'youtube')) {
             $search = '/<a\s[^>]*href="((?![^ "]*\?'.$nofilter.')';
             $search .= '(https?:\/\/(www\.)?)(youtube\.com|youtu\.be|youtube\.googleapis.com)';
@@ -989,6 +998,21 @@ function filter_multiembed_thinglinkcallback($link) {
     $embedcode .= $link[4]; // Thinglink image IDs are in the 4th capturing group of the regex.
     $embedcode .= '" type="text/html" frameborder="0" webkitallowfullscreen mozallowfullscreen';
     $embedcode .= ' allowfullscreen scrolling="no"></iframe>';
+
+    return $embedcode;
+}
+
+/**
+ * Turns a Vimeo link into an embedded video
+ * iframe code from vimeo.com website
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_vimeocallback($link) {
+    $embedcode = '<iframe class="lazyload" width="560" height="315" data-src="//player.vimeo.com/video/';
+    $embedcode .= $link[3]; // Vimeo video IDs are in the 3d capturing group of the regex.
+    $embedcode .= '" frameborder="0" allowfullscreen></iframe>';
 
     return $embedcode;
 }

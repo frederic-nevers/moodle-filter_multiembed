@@ -192,6 +192,11 @@ if ($ADMIN->fulltree) {
         get_string('thinglink_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/vimeo',
+        get_string('vimeo', 'filter_multiembed'),
+        get_string('vimeo_desc', 'filter_multiembed'),
+        1));
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/youtube',
         get_string('youtube', 'filter_multiembed'),
         get_string('youtube_desc', 'filter_multiembed'),
