@@ -290,6 +290,7 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_vimeocallback', $newtext);
         }
 
+		// Search for YouTube videos.
         if (get_config('filter_multiembed', 'youtube')) {
             $search = '/<a\s[^>]*href="((?![^ "]*\?'.$nofilter.')';
             $search .= '(https?:\/\/(www\.)?)(youtube\.com|youtu\.be|youtube\.googleapis.com)';

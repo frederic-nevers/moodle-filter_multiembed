@@ -93,6 +93,7 @@ class filter_multiembed_testcase extends basic_testcase {
             'Sutori' => 'https://www.sutori.com/timeline/the-french-revolution-eb10',
             'TED' => 'https://www.ted.com/talks/sam_harris_can_we_build_ai_without_losing_control_over_it',
             'ThingLink' => 'https://www.thinglink.com/scene/737743411833995264',
+            'Vimeo'	=>	'https://vimeo.com/243244233',
             'YouTube' => 'https://youtu.be/4m5KrPXL4wI'
         );
 
@@ -309,6 +310,11 @@ class filter_multiembed_testcase extends basic_testcase {
         $thinglinkout .= ' type="text/html" frameborder="0" webkitallowfullscreen mozallowfullscreen';
         $thinglinkout .= ' allowfullscreen scrolling="no"></iframe>';
         $this->assertContains($thinglinkout, $filteroutput, 'ThingLink filter fails');
+
+		// Run Vimeo test.
+		$vimeoout = '<iframe class="lazyload" width="560" height="315" data-src="//player.vimeo.com/video/243244233';
+		$vimeoout .= '" frameborder="0" allowfullscreen></iframe>';
+		$this->assertContains($vimeoout, $filteroutput, 'Vimeo filter fails');
 
         // Run YouTube test.
         $youtubeout = '<iframe class="lazyload" width="560" height="315" data-src="//www.youtube.com/embed/';
