@@ -81,7 +81,7 @@ class filter_multiembed_testcase extends basic_testcase {
             'Learningapps' => 'https://learningapps.org/1653886',
             'Padlet' => 'https://padlet.com/fnevers/gwz9fjz4yiia',
             'PBS' => 'http://www.pbs.org/video/2365868384/',
-            'PiktoChart' => 'https://magic.piktochart.com/output/17277748-testy',
+            'PiktoChart' => 'https://create.piktochart.com/output/41985357-moodle-testy-test',
             'PollEv' => 'https://www.polleverywhere.com/ranking_polls/7LLFJoRV9oAoolv',
             'Prezi' => 'https://prezi.com/flgl_ykzaqqu/merging-humans-computers-the-next-10-years-of-computing/#',
             'Quizlet' => 'https://quizlet.com/68910157/flashcards',
@@ -241,18 +241,17 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($pbsout, $filteroutput, 'PBS filter fails');
 
         // Run PiktoChart test.
-        $piktoout = '<div class="piktowrapper-embed" pikto-uid="17277748-testy';
-        $piktoout .= '" style="height: 300px; position: relative;"><div class="embed-loading-overlay" style="width: 100%;';
-        $piktoout .= ' height: 100%; position: absolute; text-align: center;">';
-        $piktoout .= '<img width="60px" alt="Loading..." style="margin-top: 100px" ';
-        $piktoout .= 'src="//magic.piktochart.com/loading.gif"/>';
-        $piktoout .= '<p style="margin: 0; padding: 0; font-family: Lato, Helvetica, Arial, sans-serif;';
-        $piktoout .= 'font-weight: 600; font-size: 16px">Loading...</p></div><div class="pikto-canvas-wrap">';
-        $piktoout .= '<div class="pikto-canvas"></div></div></div>';
-        $piktoout .= '<script>(function(d){var js, id="pikto-embed-js", ref=d.getElementsByTagName("script")[0]';
-        $piktoout .= ';if (d.getElementById(id)) { return;}js=d.createElement("script")';
-        $piktoout .= ';js.id=id; js.async=true;js.src="//magic.piktochart.com/assets/embedding/embed.js"';
-        $piktoout .= ';ref.parentNode.insertBefore(js, ref);}(document));</script>';
+        $piktoout = '<div class="piktowrapper-embed" style="height: 300px; position: relative;" data-uid="17277748-testy';
+        $piktoout .= '"><div class="pikto-canvas-wrap"><div class="pikto-canvas">';
+        $piktoout .= '<div class="embed-loading-overlay" style="width: 100%; height: 100%; position: absolute;';
+        $piktoout .= ' text-align: center;"><img width="60px" alt="Loading..." style="margin-top: 100px"';
+        $piktoout .= ' src="https://create.piktochart.com/loading.gif"/><p style="margin: 0; padding: 0;';
+        $piktoout .= ' font-family: Lato, Helvetica, Arial, sans-serif; font-weight: 600; font-size: 16px">';
+        $piktoout .= 'Loading...</p></div></div></div></div><script>(function(d){var js, id="pikto-embed-js"';
+        $piktoout .= ', ref=d.getElementsByTagName("script")[0];if (d.getElementById(id))';
+        $piktoout .= ' { return;}js=d.createElement("script"); js.id=id; js.async=true;js.src=';
+        $piktoout .= '"https://create.piktochart.com/assets/embedding/embed.js";ref.parentNode.';
+        $piktoout .= 'insertBefore(js, ref);}(document));</script>';
         $this->assertContains($piktoout, $filteroutput, 'PiktoChart filter fails');
 
         // Run PollEv test.
