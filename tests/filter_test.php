@@ -241,8 +241,8 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($pbsout, $filteroutput, 'PBS filter fails');
 
         // Run PiktoChart test.
-        $piktoout = '<div class="piktowrapper-embed" style="height: 300px; position: relative;" data-uid="17277748-testy';
-        $piktoout .= '"><div class="pikto-canvas-wrap"><div class="pikto-canvas">';
+        $piktoout = '<div class="piktowrapper-embed" style="height: 300px; position: relative;"';
+        $piktoout .= ' data-uid="41985357-moodle-testy-test"><div class="pikto-canvas-wrap"><div class="pikto-canvas">';
         $piktoout .= '<div class="embed-loading-overlay" style="width: 100%; height: 100%; position: absolute;';
         $piktoout .= ' text-align: center;"><img width="60px" alt="Loading..." style="margin-top: 100px"';
         $piktoout .= ' src="https://create.piktochart.com/loading.gif"/><p style="margin: 0; padding: 0;';
