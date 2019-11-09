@@ -334,7 +334,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run Trello test.
         $trelloout = '<blockquote class="trello-card">';
-        $trelloout .= '<a href="https://trello.com/c/ohxFkZS2"></a>';
+        $trelloout .= '<a href="https://trello.com/c/ohxFkZS2">Trello Card</a>';
         $trelloout .= '</blockquote><script src="https://p.trellocdn.com/embed.min.js"></script>';
         $this->assertContains($trelloout, $filteroutput, 'Trello filter fails');
 
