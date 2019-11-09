@@ -93,7 +93,7 @@ class filter_multiembed_testcase extends basic_testcase {
             'Sutori' => 'https://www.sutori.com/timeline/the-french-revolution-eb10',
             'TED' => 'https://www.ted.com/talks/sam_harris_can_we_build_ai_without_losing_control_over_it',
             'ThingLink' => 'https://www.thinglink.com/scene/737743411833995264',
-            'Trello' => 'https://trello.com/c/ohxFkZS2';
+            'Trello' => 'https://trello.com/c/ohxFkZS2',
             'Vimeo' => 'https://vimeo.com/243244233',
             'YouTube' => 'https://youtu.be/4m5KrPXL4wI'
         );
