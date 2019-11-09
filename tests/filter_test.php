@@ -149,7 +149,8 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run CodePen test.
         $codepenout = '<div class="embed-responsive embed-responsive-16by9">';
-        $codepenout .= '<iframe class="lazyload embed-responsive-item" scrolling="no" data-src="//codepen.io/superpikar/embed/wzYaRo';
+        $codepenout .= '<iframe class="lazyload embed-responsive-item" scrolling="no"';
+        $codepenout .= ' data-src="//codepen.io/superpikar/embed/wzYaRo';
         $codepenout .= '/?theme-id=0&amp;default-tab=css,result&embed-version=2" frameborder="no"';
         $codepenout .= ' allowtransparency="true" allowfullscreen="true"></iframe></div>';
         $this->assertContains($codepenout, $filteroutput, 'CodePen filter fails');
