@@ -126,6 +126,9 @@ $string['ted_desc'] = 'Embed TED Videos';
 $string['thinglink'] = 'ThingLink';
 $string['thinglink_desc'] = 'Embed ThingLink Images';
 
+$string['trello'] = 'Trello';
+$string['trello_desc'] = 'Embed Trello Boards or Cards';
+
 $string['youtube'] = 'YouTube';
 $string['youtube_desc'] = 'Embed YouTube Videos';
 

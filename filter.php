@@ -198,7 +198,7 @@ class filter_multiembed extends moodle_text_filter {
 
         // Search for Piktochart visualisations.
         if (get_config('filter_multiembed', 'piktochart')) {
-            $search = $regexstart.'(magic\.)?)(piktochart\.com)\/(output)\/([^"]*)';
+            $search = $regexstart.'(magic|create\.)?)(piktochart\.com)\/(output)\/([^"]*)';
             $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_piktochartcallback', $newtext);
         }
@@ -279,6 +279,13 @@ class filter_multiembed extends moodle_text_filter {
             $search = $regexstart.'(www\.)?)(thinglink\.com)\/scene\/([^"]*)';
             $search .= $regexend;
             $newtext = preg_replace_callback($search, 'filter_multiembed_thinglinkcallback', $newtext);
+        }
+
+        // Search for Trello boards or cards.
+        if (get_config('filter_multiembed', 'trello')) {
+            $search = $regexstart.'(www\.)?)(trello\.com)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
+            $newtext = preg_replace_callback($search, 'filter_multiembed_trellocallback', $newtext);
         }
 
         // Search for Vimeo Videos.
@@ -441,12 +448,13 @@ function filter_multiembed_classtoolscallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_codepencallback($link) {
-    $embedcode = '<iframe class="lazyload" height="265" scrolling="no" data-src="//codepen.io/';
+    $embedcode = '<div class="embed-responsive embed-responsive-16by9">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" scrolling="no" data-src="//codepen.io/';
     $embedcode .= $link[4]; // CodePen user ID is in 4th capturing group of the regex.
     $embedcode .= '/embed/';
     $embedcode .= $link[6]; // CodePen snippet ID is in 6th capturing group of the regex.
-    $embedcode .= '/?height=265&amp;theme-id=0&amp;default-tab=css,result&embed-version=2" frameborder="no"';
-    $embedcode .= ' allowtransparency="true" allowfullscreen="true" style="width: 100%;"></iframe>';
+    $embedcode .= '/?theme-id=0&amp;default-tab=css,result&embed-version=2" frameborder="no"';
+    $embedcode .= ' allowtransparency="true" allowfullscreen="true"></iframe></div>';
 
     return $embedcode;
 }
@@ -458,11 +466,12 @@ function filter_multiembed_codepencallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_desmoscallback($link) {
-    $embedcode = '<a title="View with the Desmos Graphing Calculator" href="https://www.desmos.com/calculator/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<a title="View with the Desmos Graphing Calculator" href="https://www.desmos.com/calculator/';
     $embedcode .= $link[5]; // Desmos graphing calculators are in 5th capturing group of the regex.
-    $embedcode .= '">  <img class="lazyload" data-src="https://s3.amazonaws.com/calc_thumbs/production/';
+    $embedcode .= '">  <img class="lazyload embed-responsive-item" data-src="https://s3.amazonaws.com/calc_thumbs/production/';
     $embedcode .= $link[5].'.png'; // Desmos graphing calculators are in 5th capturing group of the regex.
-    $embedcode .= '" width="200px" height="200px" style="border:1px solid #ccc; border-radius:5px"/></a>';
+    $embedcode .= '" style="border:1px solid #ccc; border-radius:5px"/></a></div>';
 
     return $embedcode;
 }
@@ -490,10 +499,11 @@ function filter_multiembed_diagnosticqcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_emazecallback($link) {
-    $embedcode = '<iframe class="lazyload" data-src="//app.emaze.com/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//app.emaze.com/';
     $embedcode .= $link[4].'/'.$link[5]; // Emaze presentation IDs are in the 4th capturing group of the regex.
-    $embedcode .= '" width="960px" height="540px" seamless webkitallowfullscreen';
-    $embedcode .= ' mozallowfullscreen allowfullscreen></iframe>';
+    $embedcode .= '" seamless webkitallowfullscreen';
+    $embedcode .= ' mozallowfullscreen allowfullscreen></iframe></div>';
 
     return $embedcode;
 }
@@ -505,9 +515,10 @@ function filter_multiembed_emazecallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_etherpadcallback($link) {
-    $embedcode = '<iframe class="lazyload" name="embed_readwrite" data-src="//etherpad.openstack.org/p/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" name="embed_readwrite" data-src="//etherpad.openstack.org/p/';
     $embedcode .= $link[4]; // Etherpad document IDs are in the 4th capturing group of the regex.
-    $embedcode .= '?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false" width=600 height=400></iframe>';
+    $embedcode .= '?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false"></iframe></div>';
 
     return $embedcode;
 }
@@ -519,16 +530,51 @@ function filter_multiembed_etherpadcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_gdocscallback($link) {
-    $embedcode = '<iframe class="lazyload" height="620" width="100%" border="0" data-src="//docs.google.com/';
+    if ($link[4] == 'drawings') {
+        $embedcode = '<img src="//docs.google.com/';
+    } else {
+        $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+        $embedcode .= '<iframe class="lazyload embed-responsive-item" border="0" data-src="//docs.google.com/';
+    }
     $embedcode .= $link[4].'/'; // Service type is in 4th capturing group of regex.
     $embedcode .= $link[5].'/'; // Unsure letter is always the same.
     $embedcode .= $link[6].'/'; // Google Doc IDs are in the 6th capturing group of the regex.
 
-    // Google forms follow a slightly different logic.
-    if ($link[4] != 'forms') {
-        $embedcode .= 'edit?usp=sharing"></iframe>';
+    // Check if documents are published to Web.
+    if (strpos($link[7], 'pub') !== false) {
+
+        // Deal with different use cases.
+        $itemtype = $link[4]; // Service type is in 4th capturing group of regex.
+
+        switch ($itemtype) {
+            case 'document':
+                $embedcode .= $link[7];
+                $embedcode .= '?embedded=true';
+                $embedcode .= '"></iframe></div>';
+                break;
+            case 'presentation':
+                $embedcode .= str_replace("pub", "embed", $link[7]);
+                $embedcode .= '" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true';
+                $embedcode .= '"></iframe></div>';
+                break;
+            case 'spreadsheets':
+                $embedcode .= $link[7];
+                $embedcode .= '&widget=true&headers=false';
+                $embedcode .= '"></iframe></div>';
+                break;
+            case 'drawings':
+                $embedcode .= $link[7];
+                $embedcode .= '">';
+                break;
+            case 'forms':
+                $embedcode .= '"></iframe></div>';
+                break;
+            default:
+                $embedcode .= 'edit?usp=sharing"></iframe></div>';
+        }
+
     } else {
-        $embedcode .= '"></iframe>';
+        $embedcode .= 'edit?usp=sharing"></iframe></div>';
     }
 
     return $embedcode;
@@ -541,10 +587,11 @@ function filter_multiembed_gdocscallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_gdrivecallback($link) {
-    $embedcode = '<iframe class="lazyload" height="480" width="100%" data-src="//drive.google.com/file/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//drive.google.com/file/';
     $embedcode .= $link[5].'/'; // Unsure letter is always the same.
     $embedcode .= $link[6].'/preview'; // Google Drive IDs are in the 6th capturing group of the regex.
-    $embedcode .= '"></iframe>';
+    $embedcode .= '"></iframe></div>';
 
     return $embedcode;
 }
@@ -556,7 +603,8 @@ function filter_multiembed_gdrivecallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_gsuitecallback($link) {
-    $embedcode = '<iframe class="lazyload" height="620" width="100%" border="0" data-src="//docs.google.com/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" border="0" data-src="//docs.google.com/';
     $embedcode .= $link[6].'/'; // Service type is in 6th capturing group of regex.
     $embedcode .= $link[7].'/'; // Unsure letter is always the same (should be a 'd').
 
@@ -568,9 +616,9 @@ function filter_multiembed_gsuitecallback($link) {
 
     // Google forms follow a slightly different logic.
     if ($link[6] != 'forms') {
-        $embedcode .= 'edit?usp=sharing"></iframe>';
+        $embedcode .= 'edit?usp=sharing"></iframe></div>';
     } else {
-        $embedcode .= 'viewform"></iframe>';
+        $embedcode .= 'viewform"></iframe></div>';
     }
 
     return $embedcode;
@@ -583,11 +631,12 @@ function filter_multiembed_gsuitecallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_haikucallback($link) {
-    $embedcode = '<iframe class="lazyload" data-src="//www.haikudeck.com/e/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//www.haikudeck.com/e/';
     // Only keep the last 10 characters of any URL, those are the deck IDs.
     $embedcode .= substr($link[4], -10); // Haiku deck IDs are in the 4th capturing group of the regex.
-    $embedcode .= '/?isUrlHashEnabled=false&isPreviewEnabled=false&isHeaderVisible=false"';
-    $embedcode .= 'width="640" height="541" frameborder="0" marginheight="0" marginwidth="0"></iframe>';
+    $embedcode .= '/?isUrlHashEnabled=false&isPreviewEnabled=false&isHeaderVisible=false "';
+    $embedcode .= 'frameborder="0" marginheight="0" marginwidth="0"></iframe></div>';
 
     return $embedcode;
 }
@@ -617,10 +666,14 @@ function filter_multiembed_imgurcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_infogramcallback($link) {
-    $embedcode = '<iframe class="lazyload" data-src="//e.infogr.am/';
+    $embedcode = '<div class="infogram-embed" data-id="';
     $embedcode .= $link[4]; // Infogr.am visualisation IDs are in the 5th capturing group of the regex.
-    $embedcode .= '?src=embed" title="Top Earners" width="700" height="580"';
-    $embedcode .= 'scrolling="no" frameborder="0" style="border:none;"></iframe>';
+    $embedcode .= '" data-type="interactive" data-title="Copy: ">';
+    $embedcode .= '</div><script>!function(e,i,n,s){var t="InfogramEmbeds",d=e.getElementsByTagName("script")[0]';
+    $embedcode .= ';if(window[t]&&window[t].initialized)window[t].process&&window[t].process();else if';
+    $embedcode .= '(!e.getElementById(n)){var o=e.createElement("script");o.async=1,o.id=n,o.src=';
+    $embedcode .= '"https://e.infogram.com/js/dist/embed-loader-min.js",d.parentNode.insertBefore(o,d)}}';
+    $embedcode .= '(document,0,"infogram-async");</script>';
 
     return $embedcode;
 }
@@ -651,9 +704,10 @@ function filter_multiembed_learningappscallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_padletcallback($link) {
-    $embedcode = '<iframe class="lazyload" data-src="//padlet.com/embed/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//padlet.com/embed/';
     $embedcode .= $link[5]; // Padlet IDs are in the 4th capturing group of the regex.
-    $embedcode .= '" frameborder="0" width="100%" height="480px" style="padding:0;margin:0;border:none"></iframe>';
+    $embedcode .= '" frameborder="0" style="padding:0;margin:0;border:none"></iframe></div>';
 
     return $embedcode;
 }
@@ -666,9 +720,10 @@ function filter_multiembed_padletcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_pbscallback($link) {
-    $embedcode = '<iframe class="lazyload" width="512" height="376" data-src="//player.pbs.org/viralplayer/';
+    $embedcode = '<div class="embed-responsive embed-responsive-16by9">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//player.pbs.org/viralplayer/';
     $embedcode .= $link[5]; // PBS IDs are in the 4th capturing group of the regex.
-    $embedcode .= '" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" seamless allowfullscreen></iframe>';
+    $embedcode .= '" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" seamless allowfullscreen></iframe></div>';
 
     return $embedcode;
 }
@@ -680,19 +735,18 @@ function filter_multiembed_pbscallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_piktochartcallback($link) {
-    $embedcode = '<div class="piktowrapper-embed" pikto-uid="';
+    $embedcode = '<div class="piktowrapper-embed" style="height: 300px; position: relative;" data-uid="';
     $embedcode .= $link[5]; // Piktochart ID is in 5th capturing group of regular expression.
-    $embedcode .= '" style="height: 300px; position: relative;"><div class="embed-loading-overlay" style="width: 100%;';
-    $embedcode .= ' height: 100%; position: absolute; text-align: center;">';
-    $embedcode .= '<img width="60px" alt="Loading..." style="margin-top: 100px" ';
-    $embedcode .= 'src="//magic.piktochart.com/loading.gif"/>';
-    $embedcode .= '<p style="margin: 0; padding: 0; font-family: Lato, Helvetica, Arial, sans-serif;';
-    $embedcode .= 'font-weight: 600; font-size: 16px">Loading...</p></div><div class="pikto-canvas-wrap">';
-    $embedcode .= '<div class="pikto-canvas"></div></div></div>';
-    $embedcode .= '<script>(function(d){var js, id="pikto-embed-js", ref=d.getElementsByTagName("script")[0]';
-    $embedcode .= ';if (d.getElementById(id)) { return;}js=d.createElement("script")';
-    $embedcode .= ';js.id=id; js.async=true;js.src="//magic.piktochart.com/assets/embedding/embed.js"';
-    $embedcode .= ';ref.parentNode.insertBefore(js, ref);}(document));</script>';
+    $embedcode .= '"><div class="pikto-canvas-wrap"><div class="pikto-canvas">';
+    $embedcode .= '<div class="embed-loading-overlay" style="width: 100%; height: 100%; position: absolute;';
+    $embedcode .= ' text-align: center;"><img width="60px" alt="Loading..." style="margin-top: 100px"';
+    $embedcode .= ' src="https://create.piktochart.com/loading.gif"/><p style="margin: 0; padding: 0;';
+    $embedcode .= ' font-family: Lato, Helvetica, Arial, sans-serif; font-weight: 600; font-size: 16px">';
+    $embedcode .= 'Loading...</p></div></div></div></div><script>(function(d){var js, id="pikto-embed-js"';
+    $embedcode .= ', ref=d.getElementsByTagName("script")[0];if (d.getElementById(id))';
+    $embedcode .= ' { return;}js=d.createElement("script"); js.id=id; js.async=true;js.src=';
+    $embedcode .= '"https://create.piktochart.com/assets/embedding/embed.js";ref.parentNode.';
+    $embedcode .= 'insertBefore(js, ref);}(document));</script>';
 
     return $embedcode;
 }
@@ -706,11 +760,12 @@ function filter_multiembed_piktochartcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_pollevcallback($link) {
-    $embedcode = '<iframe class="lazyload" data-src="https://embed.polleverywhere.com/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="https://embed.polleverywhere.com/';
     $embedcode .= $link[4].'/'; // Type of activity.
     // Strip any unwanted parts of ID.
     $embedcode .= strtok($link[5], "/"); // PollEv IDs are in the 5th capturing group of the regex.
-    $embedcode .= '?controls=none&short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>';
+    $embedcode .= '?controls=none&short_poll=true" frameBorder="0"></iframe></div>';
 
     return $embedcode;
 }
@@ -767,9 +822,9 @@ function filter_multiembed_quizletcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_riddlecallback($link) {
-    $embedcode = '<div class="riddle_target" data-rid-id="';
+    $embedcode = '<div class="riddle_target embed-responsive embed-responsive-4by3" data-rid-id="';
     $embedcode .= basename($link[5]); // Riddle IDs are in the 5th capturing group of the regex.
-    $embedcode .= '" data-fg="#1486cd" data-bg="#FFFFFF" style="margin:0 auto;max-width:640px">';
+    $embedcode .= '" data-fg="#1486cd" data-bg="#FFFFFF" style="margin:0 auto;">';
     $embedcode .= '<script src="https://www.riddle.com/files/js/embed.js"></script>';
     $embedcode .= '<iframe style="width:100%;height:300px;border:1px solid #cfcfcf" src="//riddle.com/a/';
     $embedcode .= basename($link[5]);
@@ -785,11 +840,12 @@ function filter_multiembed_riddlecallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_slidescallback($link) {
-    $embedcode = '<iframe class="lazyload" data-src="//slides.com/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//slides.com/';
     $embedcode .= $link[4].'/'; // Slid.es user IDs are in the 5th capturing group of the regex.
     $embedcode .= strtok($link[5], "/"); // Slid.es slide IDs are in the 6th capturing group of the regex.
-    $embedcode .= 'embed" width="576" height="420" scrolling="no" frameborder="0"';
-    $embedcode .= 'webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+    $embedcode .= 'embed" scrolling="no" frameborder="0"';
+    $embedcode .= 'webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div>';
 
     return $embedcode;
 }
@@ -801,10 +857,11 @@ function filter_multiembed_slidescallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_smorecallback($link) {
-    $embedcode = '<iframe class="lazyload" width="100%" height="600" data-src="//www.smore.com/';
+    $embedcode = '<div class="embed-responsive embed-responsive-4by3">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//www.smore.com/';
     $embedcode .= $link[4]; // Smore IDs are in the 4th capturing group of the regex.
     $embedcode .= '?embed=1" scrolling="auto" frameborder="0" allowtransparency="true"';
-    $embedcode .= ' style="min-width: 320px;border: none;"></iframe>';
+    $embedcode .= ' style="min-width: 320px;border: none;"></iframe></div>';
 
     return $embedcode;
 }
@@ -979,10 +1036,11 @@ function filter_multiembed_sutoricallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_tedcallback($link) {
-    $embedcode = '<iframe class="lazyload" data-src="//embed.ted.com/talks/';
+    $embedcode = '<div class="embed-responsive embed-responsive-16by9">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//embed.ted.com/talks/';
     $embedcode .= $link[4]; // TED video IDs are in the 4th capturing group of the regex.
-    $embedcode .= '" width="640" height="360" frameborder="0" scrolling="no" ';
-    $embedcode .= 'webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+    $embedcode .= '" frameborder="0" scrolling="no" ';
+    $embedcode .= 'webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>';
 
     return $embedcode;
 }
@@ -1004,6 +1062,43 @@ function filter_multiembed_thinglinkcallback($link) {
 }
 
 /**
+ * Turns a Trello link into an embedded card or board
+ * depending on code pasted.
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_trellocallback($link) {
+    $itemtype = $link[4]; // Trello item type is in 4th group of regex.
+
+    switch ($itemtype) {
+        case 'b':
+            $divclass = 'trello-board-compact';
+            $title = 'Trello Board';
+            break;
+        case 'c':
+            $divclass = 'trello-card';
+            $title = 'Trello Card';
+            break;
+        default:
+            $divclass = 'trello-board-compact';
+            $title = 'Trello Board';
+    }
+
+    $embedcode = '<blockquote class="';
+    $embedcode .= $divclass;
+    $embedcode .= '"><a href="https://trello.com/';
+    $embedcode .= $link[4]; // Trello itemtype determines URL structure.
+    $embedcode .= '/';
+    $embedcode .= strtok($link[5], '/'); // Trello board or card IDs are in the 5th capturing group of the regex.
+    $embedcode .= '">';
+    $embedcode .= $title;
+    $embedcode .= '</a></blockquote><script src="https://p.trellocdn.com/embed.min.js"></script>';
+
+    return $embedcode;
+}
+
+/**
  * Turns a Vimeo link into an embedded video
  * iframe code from vimeo.com website
  *
@@ -1011,9 +1106,10 @@ function filter_multiembed_thinglinkcallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_vimeocallback($link) {
-    $embedcode = '<iframe class="lazyload" width="560" height="315" data-src="//player.vimeo.com/video/';
+    $embedcode = '<div class="embed-responsive embed-responsive-16by9">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//player.vimeo.com/video/';
     $embedcode .= $link[3]; // Vimeo video IDs are in the 3d capturing group of the regex.
-    $embedcode .= '" frameborder="0" allowfullscreen></iframe>';
+    $embedcode .= '" frameborder="0" allowfullscreen></iframe></div>';
 
     return $embedcode;
 }
@@ -1027,9 +1123,10 @@ function filter_multiembed_vimeocallback($link) {
  * @return string HTML content after processing.
  */
 function filter_multiembed_youtubecallback($link) {
-    $embedcode = '<iframe class="lazyload" width="560" height="315" data-src="//www.youtube.com/embed/';
+    $embedcode = '<div class="embed-responsive embed-responsive-16by9">';
+    $embedcode .= '<iframe class="lazyload embed-responsive-item" data-src="//www.youtube.com/embed/';
     $embedcode .= $link[5]; // YouTube video IDs are in the 5th capturing group of the regex.
-    $embedcode .= '" frameborder="0" allowfullscreen></iframe>';
+    $embedcode .= '" frameborder="0" allowfullscreen></iframe></div>';
 
     return $embedcode;
 }
