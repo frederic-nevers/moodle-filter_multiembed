@@ -48,7 +48,8 @@ The following services are currently supported. Services will be added on a regu
    24. Sutori - https://www.sutori.com
    25. TED - https://www.ted.com
    26. ThingLink - https://www.thinglink.com
-   27. YouTube - https://www.youtube.com
+   27. Trello - https://www.trello.com
+   28. YouTube - https://www.youtube.com
 
 # Services tested, not currently supported
 
