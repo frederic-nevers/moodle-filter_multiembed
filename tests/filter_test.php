@@ -291,7 +291,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run Smore test.
         $smoreout = '<div class="embed-responsive embed-responsive-4by3">';
-        $smoreout .= '<iframe class="lazyload embed-responsive-item" width="100%" height="600" ';
+        $smoreout .= '<iframe class="lazyload embed-responsive-item" ';
         $smoreout .= 'data-src="//www.smore.com/j6ry-using-smore-in-your-classroom?';
         $smoreout .= 'embed=1" scrolling="auto" frameborder="0" allowtransparency="true" ';
         $smoreout .= 'style="min-width: 320px;border: none;"></iframe></div>';
