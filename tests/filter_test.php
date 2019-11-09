@@ -214,9 +214,13 @@ class filter_multiembed_testcase extends basic_testcase {
         $this->assertContains($imgurout, $filteroutput, 'Imgur filter fails');
 
         // Run Infogram test.
-        $infogramout = '<iframe class="lazyload" data-src="//e.infogr.am/eu_fraud_map___international_version';
-        $infogramout .= '?src=embed" title="Top Earners" width="700" height="580"';
-        $infogramout .= 'scrolling="no" frameborder="0" style="border:none;"></iframe>';
+        $infogramout = '<div class="infogram-embed" data-id="eu_fraud_map___international_version';
+        $infogramout .= '" data-type="interactive" data-title="Copy: ">';
+        $infogramout .= '</div><script>!function(e,i,n,s){var t="InfogramEmbeds",d=e.getElementsByTagName("script")[0]';
+        $infogramout .= ';if(window[t]&&window[t].initialized)window[t].process&&window[t].process();else if';
+        $infogramout .= '(!e.getElementById(n)){var o=e.createElement("script");o.async=1,o.id=n,o.src=';
+        $infogramout .= '"https://e.infogram.com/js/dist/embed-loader-min.js",d.parentNode.insertBefore(o,d)}}';
+        $infogramout .= '(document,0,"infogram-async");</script>';
         $this->assertContains($infogramout, $filteroutput, 'Infogram filter fails');
 
         // Run Learningapps test.
