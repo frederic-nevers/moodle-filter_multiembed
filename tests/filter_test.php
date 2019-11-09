@@ -276,7 +276,7 @@ class filter_multiembed_testcase extends basic_testcase {
         // Run Riddle test.
         $riddletout = '<div class="riddle_target embed-responsive embed-responsive-4by3" ';
         $riddletout .= 'data-rid-id="86733" data-fg="#1486cd" data-bg="#FFFFFF" ';
-        $riddletout .= 'style="margin:0 auto;max-width:640px">';
+        $riddletout .= 'style="margin:0 auto;">';
         $riddletout .= '<script src="https://www.riddle.com/files/js/embed.js"></script>';
         $riddletout .= '<iframe style="width:100%;height:300px;border:1px solid #cfcfcf" ';
         $riddletout .= 'src="//riddle.com/a/86733?"></iframe></div>';
