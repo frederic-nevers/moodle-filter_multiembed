@@ -202,7 +202,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run Haiku Deck test.
         $haikuout = '<div class="embed-responsive embed-responsive-4by3">';
-        $haikuout .= '<iframe class="lazyload" data-src="//www.haikudeck.com/e/IAoLln02nF';
+        $haikuout .= '<iframe class="lazyload embed-responsive-item" data-src="//www.haikudeck.com/e/IAoLln02nF';
         $haikuout .= '/?isUrlHashEnabled=false&isPreviewEnabled=false&isHeaderVisible=false "';
         $haikuout .= 'frameborder="0" marginheight="0" marginwidth="0"></iframe></div>';
         $this->assertContains($haikuout, $filteroutput, 'Haiku filter fails');
@@ -226,7 +226,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run Padlet test.
         $padletout = '<div class="embed-responsive embed-responsive-4by3">';
-        $padletout .= '<iframe class="lazyload" data-src="//padlet.com/embed/gwz9fjz4yiia';
+        $padletout .= '<iframe class="lazyload embed-responsive-item" data-src="//padlet.com/embed/gwz9fjz4yiia';
         $padletout .= '" frameborder="0" style="padding:0;margin:0;border:none"></iframe></div>';
         $this->assertContains($padletout, $filteroutput, 'Padlet filter fails');
 
@@ -288,7 +288,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run Smore test.
         $smoreout = '<div class="embed-responsive embed-responsive-4by3">';
-        $smoreout .= '<iframe class="lazyload" width="100%" height="600" ';
+        $smoreout .= '<iframe class="lazyload embed-responsive-item" width="100%" height="600" ';
         $smoreout .= 'data-src="//www.smore.com/j6ry-using-smore-in-your-classroom?';
         $smoreout .= 'embed=1" scrolling="auto" frameborder="0" allowtransparency="true" ';
         $smoreout .= 'style="min-width: 320px;border: none;"></iframe></div>';
@@ -343,7 +343,7 @@ class filter_multiembed_testcase extends basic_testcase {
 
         // Run YouTube test.
         $youtubeout = '<div class="embed-responsive embed-responsive-16by9">';
-        $youtubeout = '<iframe class="lazyload" data-src="//www.youtube.com/embed/';
+        $youtubeout .= '<iframe class="lazyload embed-responsive-item" data-src="//www.youtube.com/embed/';
         $youtubeout .= '4m5KrPXL4wI';
         $youtubeout .= '" frameborder="0" allowfullscreen></iframe></div>';
         $this->assertContains($youtubeout, $filteroutput, 'YouTube filter fails');
