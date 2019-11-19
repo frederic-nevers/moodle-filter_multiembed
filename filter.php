@@ -131,6 +131,24 @@ class filter_multiembed extends moodle_text_filter {
             $newtext = preg_replace_callback($search, 'filter_multiembed_etherpadcallback', $newtext);
         }
 
+        // Search for Framapad.
+        if (get_config('filter_multiembed', 'framapad') &&  stristr($text,'framapad.org')) {
+            $search = $regexstart.'(annuel|semestriel|bimestriel|mypads|mensuel|hebdo)\.framapad\.org)\/([^"]*)\/([^"]*)';
+            $search .= $regexend;
+            preg_match($search, $text, $matches, PREG_OFFSET_CAPTURE, 0);
+            if (stristr($matches[1][0],'framapad.org'))
+              $newtext = filter_multiembed_framapadcallback ($matches);
+        }
+        // Search for framemo
+        if (get_config('filter_multiembed', 'framemo') && stristr($text,'framemo.org')) {
+            $search = $regexstart.'(framemo\.org))\/([^"]*)';
+            $search .= $regexend;
+            preg_match($search, $text, $matches, PREG_OFFSET_CAPTURE, 0);
+            if ($matches[2][0] == 'framemo.org')
+               $newtext = filter_multiembed_framemocallback ($matches[3][0]);
+        }
+
+
         // Search for Google Docs, Drawings, Forms, Presentations and Sheets.
         if (get_config('filter_multiembed', 'gdocs')) {
             $search = $regexstart.'(docs\.))(google\.com)\/(document|drawings|forms|';
@@ -520,6 +538,36 @@ function filter_multiembed_etherpadcallback($link) {
     $embedcode .= $link[4]; // Etherpad document IDs are in the 4th capturing group of the regex.
     $embedcode .= '?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false"></iframe></div>';
 
+    return $embedcode;
+}
+
+/**
+ * Turns an Framemo link into an embedded document
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_framemocallback($link) {
+
+    $embedcode = '<iframe name="embed_readwrite" src="https://framemo.org/';
+    $embedcode .= $link; // Framapad document IDs are in the 4th capturing group of the regex.
+    $embedcode .= '?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false" width=900 height=600 frameborder=2></iframe>';
+    return $embedcode;
+}
+
+/**
+ * Turns an Framapad link into an embedded document
+ *
+ * @param  string $link HTML tag containing a link
+ * @return string HTML content after processing.
+ */
+function filter_multiembed_framapadcallback($link) {
+
+    $itemtype = $link[2][0];// ClassTools item type is in 4th group of regex.
+    $itemtop = $link[4][0];// ClassTools item type is in 4th group of regex.
+    $embedcode = '<iframe name="embed_readwrite" src="//'.$itemtype.'.framapad.org/p/';
+    $embedcode .= $itemtop; // Framapad document IDs are in the 4th capturing group of the regex.
+    $embedcode .= '?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false" width=900 height=600 frameborder=2></iframe>';
     return $embedcode;
 }
 
