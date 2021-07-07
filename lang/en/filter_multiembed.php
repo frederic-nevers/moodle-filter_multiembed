@@ -63,6 +63,12 @@ $string['emaze_desc'] = 'Embed Emaze presentations';
 $string['etherpad'] = 'Etherpad';
 $string['etherpad_desc'] = 'Embed Etherpad documents';
 
+$string['framapad'] = 'Framapad';
+$string['framapad_desc'] = 'Embed Framapad documents';
+
+$string['framemo'] = 'Framemo';
+$string['framemo_desc'] = 'Embed Framemo documents';
+
 $string['gdocs'] = 'Editable Google Documents, Drawings, Forms, Sheets or Slides';
 $string['gdocs_desc'] = 'Embed editable Google Documents, Drawings, Forms, Sheets or Slides';
 
