@@ -87,6 +87,17 @@ if ($ADMIN->fulltree) {
         get_string('etherpad_desc', 'filter_multiembed'),
         1));
 
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/framapad',
+        get_string('framapad', 'filter_multiembed'),
+        get_string('framapad_desc', 'filter_multiembed'),
+        1));
+
+    $settings->add(new admin_setting_configcheckbox('filter_multiembed/framemo',
+        get_string('framemo', 'filter_multiembed'),
+        get_string('framemo_desc', 'filter_multiembed'),
+        1));
+
+
     $settings->add(new admin_setting_configcheckbox('filter_multiembed/gdocs',
         get_string('gdocs', 'filter_multiembed'),
         get_string('gdocs_desc', 'filter_multiembed'),
